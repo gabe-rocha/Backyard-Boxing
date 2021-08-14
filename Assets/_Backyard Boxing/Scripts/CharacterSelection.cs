@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class CharacterSelection : MonoBehaviour
 {
-    [SerializeField] List<GameObject> listCharacters;
-    [SerializeField] Transform characterSpawnPosition;
+    [SerializeField] List<GameObject> listUMAS;
+    [SerializeField] Transform UMASpawnPosition;
 
-    private GameObject currentChar;
-
-    private void Start()
+    private IEnumerator Start()
     {
-        GameObject defaultChar = listCharacters[0];
-        currentChar = Instantiate(defaultChar, characterSpawnPosition, false);
+        yield return new WaitUntil(()=>GameData.player != null);
+        GameObject defaultChar = listUMAS[0];
+        InstantiateCharacter(defaultChar);
     }
 
     public void OnButtonCharacterPressed(int buttonIndex){
-        InstantiateCharacter(listCharacters[buttonIndex]);
+        InstantiateCharacter(listUMAS[buttonIndex]);
     }
 
     private void InstantiateCharacter(GameObject newChar)
     {
-        Destroy(currentChar);
-        currentChar = Instantiate(newChar, characterSpawnPosition, false);
+        GameData.player.DestroyUMA();
+        var currentUMA = Instantiate(newChar, UMASpawnPosition, false);
+        GameData.player.SetUMA(currentUMA);
     }
 }

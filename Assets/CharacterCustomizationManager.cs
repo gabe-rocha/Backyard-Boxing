@@ -6,14 +6,14 @@ public class CharacterCustomizationManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject mainCharacterCustomizationScreen;
-    [SerializeField] private GameObject hairSelectionScreen;
-    [SerializeField] private GameObject beardSelectionScreen;
-    [SerializeField] private GameObject accessoriesSelectionScreen;
-    [SerializeField] private GameObject skinColorSelectionScreen;
-    [SerializeField] private GameObject shirtSelectionScreen;
-    [SerializeField] private GameObject shortsSelectionScreen;
-    [SerializeField] private GameObject glovesSelectionScreen;
-    [SerializeField] private GameObject shoesSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder hairSelectionScreenBuilder;
+    [SerializeField] private ItemSelectionBuilder beardSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder accessoriesSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder skinColorSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder shirtSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder shortsSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder glovesSelectionScreen;
+    [SerializeField] private ItemSelectionBuilder shoesSelectionScreen;
 
     private void Start()
     {
@@ -23,16 +23,16 @@ public class CharacterCustomizationManager : MonoBehaviour
 
     private void HideAllScreens(){
         mainCharacterCustomizationScreen.SetActive(false);
-        hairSelectionScreen.SetActive(false);
+        shirtSelectionScreen.Hide();
+        hairSelectionScreenBuilder.Hide();
+        beardSelectionScreen.Hide();
+        shortsSelectionScreen.Hide();
+        // accessoriesSelectionScreen.Hide();
+        // skinColorSelectionScreen.Hide();
+        // glovesSelectionScreen.Hide();
+        // shoesSelectionScreen.Hide();
 
         return;
-        beardSelectionScreen.SetActive(false);
-        accessoriesSelectionScreen.SetActive(false);
-        skinColorSelectionScreen.SetActive(false);
-        shirtSelectionScreen.SetActive(false);
-        shortsSelectionScreen.SetActive(false);
-        glovesSelectionScreen.SetActive(false);
-        shoesSelectionScreen.SetActive(false);
     }
 
     public void OnButtonBackPressed(){
@@ -42,42 +42,42 @@ public class CharacterCustomizationManager : MonoBehaviour
 
     public void OnButtonHairPressed(){
         HideAllScreens();
-        hairSelectionScreen.SetActive(true);
+        hairSelectionScreenBuilder.Show();
     }
 
     public void OnButtonBeardPressed(){
         HideAllScreens();
-        beardSelectionScreen.SetActive(true);
+        beardSelectionScreen.Show();
     }
     
     public void OnButtonHatsPressed(){
         HideAllScreens();
-        accessoriesSelectionScreen.SetActive(true);
+        accessoriesSelectionScreen.Show();
     }
     
     public void OnButtonSkinColorPressed(){
         HideAllScreens();
-        skinColorSelectionScreen.SetActive(true);
+        skinColorSelectionScreen.Show();
     }
     
     public void OnButtonShirtPressed(){
         HideAllScreens();
-        shirtSelectionScreen.SetActive(true);
+        shirtSelectionScreen.Show();
     }
     
     public void OnButtonShortsPressed(){
         HideAllScreens();
-        shortsSelectionScreen.SetActive(true);
+        shortsSelectionScreen.Show();
     }
     
     public void OnButtonGlovesPressed(){
         HideAllScreens();
-        glovesSelectionScreen.SetActive(true);
+        glovesSelectionScreen.Show();
     }
     
     public void OnButtonShoesPressed(){
         HideAllScreens();
-        shoesSelectionScreen.SetActive(true);
+        shoesSelectionScreen.Show();
     }
 
 }
