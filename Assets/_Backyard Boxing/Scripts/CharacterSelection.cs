@@ -11,6 +11,8 @@ public class CharacterSelection : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitUntil(()=>GameData.player != null);
+        GameData.gameState = GameData.GameStates.SelectingCharacter;
+
         GameObject defaultChar = listUMAS[0];
         InstantiateCharacter(defaultChar);
     }

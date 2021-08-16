@@ -16,4 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a392bf4bcde202499ab984160d99ef4, type: 2}
   - {fileID: 11400000, guid: 4673312124a6fbd46bf58608e7dcf792, type: 2}
   - {fileID: 11400000, guid: 59f3159978ef9f74ba217c2f849cabf9, type: 2}
+  - {fileID: 11400000, guid: 996a52f667b22cc43b12b44df7b58c4d, type: 2}
   listOfItemsFemale: []

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: List of Male Pants
   m_EditorClassIdentifier: 
   listOfItemsMale:
+  - {fileID: 11400000, guid: e26428367103af64da9332fbf62d1562, type: 2}
   - {fileID: 11400000, guid: 1483ed61804c42548888e23b2ed68cd6, type: 2}
   - {fileID: 11400000, guid: 013d231e77b847548a0fbf015ff2fbae, type: 2}
   listOfItemsFemale: []

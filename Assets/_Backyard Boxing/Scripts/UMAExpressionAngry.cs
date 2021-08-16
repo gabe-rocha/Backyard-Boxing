@@ -91,16 +91,16 @@ public class UMAExpressionAngry : MonoBehaviour {
 			// case 3:
 				expression.leftMouthSmile_Frown = Mathf.Lerp(expression.leftMouthSmile_Frown,-0.3f,delta);
 				expression.rightMouthSmile_Frown = Mathf.Lerp(expression.rightMouthSmile_Frown,-0.3f,delta);
-				expression.midBrowUp_Down = Mathf.Lerp(expression.midBrowUp_Down,-1f,delta);
+				expression.midBrowUp_Down = Mathf.Lerp(expression.midBrowUp_Down,-0.5f,delta);
 				expression.leftBrowUp_Down = Mathf.Lerp(expression.leftBrowUp_Down,0.7f,delta);
 				expression.rightBrowUp_Down = Mathf.Lerp(expression.rightBrowUp_Down,0.7f,delta);
 				expression.rightUpperLipUp_Down = Mathf.Lerp(expression.rightUpperLipUp_Down,0.7f,delta);
 				expression.leftUpperLipUp_Down = Mathf.Lerp(expression.leftUpperLipUp_Down,0.7f,delta);
 				expression.rightLowerLipUp_Down = Mathf.Lerp(expression.rightLowerLipUp_Down,-0.7f,delta);
 				expression.leftLowerLipUp_Down = Mathf.Lerp(expression.leftLowerLipUp_Down,-0.7f,delta);
-				expression.mouthNarrow_Pucker = Mathf.Lerp(expression.mouthNarrow_Pucker,0.7f,delta);
+				expression.mouthNarrow_Pucker = Mathf.Lerp(expression.mouthNarrow_Pucker,0,delta);
 				expression.jawOpen_Close = Mathf.Lerp(expression.jawOpen_Close,0f,delta);
-				expression.noseSneer = Mathf.Lerp(expression.noseSneer,0.3f,delta);
+				expression.noseSneer = Mathf.Lerp(expression.noseSneer,1f,delta);
 				expression.leftEyeOpen_Close = Mathf.Lerp(expression.leftEyeOpen_Close,-0.2f,delta);
 				expression.rightEyeOpen_Close = Mathf.Lerp(expression.rightEyeOpen_Close,-0.2f,delta);
 		// 		break;

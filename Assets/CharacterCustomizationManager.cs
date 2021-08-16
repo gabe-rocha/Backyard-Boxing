@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterCustomizationManager : MonoBehaviour
 {
@@ -78,6 +79,11 @@ public class CharacterCustomizationManager : MonoBehaviour
     public void OnButtonShoesPressed(){
         HideAllScreens();
         shoesSelectionScreen.Show();
+    }
+
+    public void OnButtonPlayPressed(){
+        GameData.gameState = GameData.GameStates.Loading;
+        SceneManager.LoadScene(1);
     }
 
 }

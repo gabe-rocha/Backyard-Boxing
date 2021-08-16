@@ -3383,7 +3383,7 @@ MonoBehaviour:
       - HumanMale
       - HumanMaleDCS
   raceAnimationControllers:
-    defaultAnimationController: {fileID: 9100000, guid: 6a82ed9c9e64c1044921f433b0ece59e, type: 2}
+    defaultAnimationController: {fileID: 9100000, guid: fae0dce25fe631448a11a9a98563e4bb, type: 2}
     animators: []
     dynamicallyAddFromResources: 0
     resourcesFolderPath: 
