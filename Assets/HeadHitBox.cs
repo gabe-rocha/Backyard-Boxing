@@ -10,20 +10,20 @@ public class HeadHitBox : MonoBehaviour
     bool isPlayer;
 
     private IEnumerator Start(){
-        yield return new WaitUntil(()=> GameData.player != null && GameData.opponent != null);
+        yield return new WaitUntil(()=> Data.player != null && Data.opponent != null);
         if(CompareTag("Player")){
-            player = GameData.player;
+            player = Data.player;
             isPlayer = true;
         }
         else if(CompareTag("Opponent")){
-            opponent = GameData.opponent;
+            opponent = Data.opponent;
             isPlayer = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(GameData.gameState != GameData.GameStates.Fighting)
+        if(Data.gameState != Data.GameStates.Fighting)
             return;
 
         if(!isPlayer)

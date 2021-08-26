@@ -23,8 +23,8 @@ public class OpponentAI : MonoBehaviour
     private Coroutine movingCor;
 
     private IEnumerator Start(){
-        yield return new WaitUntil(()=> GameData.gameState == GameData.GameStates.Loading);
-        GameData.opponent = this;
+        yield return new WaitUntil(()=> Data.gameState == Data.GameStates.Loading);
+        Data.opponent = this;
     }
 
     internal void GetHit()
@@ -65,7 +65,7 @@ public class OpponentAI : MonoBehaviour
 
     private void Update()
     {
-        if(GameData.gameState == GameData.GameStates.Fighting)
+        if(Data.gameState == Data.GameStates.Fighting)
         {
             FaceRingCenter();
         }

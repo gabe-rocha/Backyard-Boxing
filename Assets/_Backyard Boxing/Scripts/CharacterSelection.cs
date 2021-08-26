@@ -10,8 +10,8 @@ public class CharacterSelection : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitUntil(()=>GameData.player != null);
-        GameData.gameState = GameData.GameStates.SelectingCharacter;
+        yield return new WaitUntil(()=>Data.player != null);
+        Data.gameState = Data.GameStates.SelectingCharacter;
 
         GameObject defaultChar = listUMAS[0];
         InstantiateCharacter(defaultChar);
@@ -23,8 +23,8 @@ public class CharacterSelection : MonoBehaviour
 
     private void InstantiateCharacter(GameObject newChar)
     {
-        GameData.player.DestroyUMA();
+        Data.player.DestroyUMA();
         var currentUMA = Instantiate(newChar, UMASpawnPosition, false);
-        GameData.player.SetUMA(currentUMA);
+        Data.player.SetUMA(currentUMA);
     }
 }

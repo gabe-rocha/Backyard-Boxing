@@ -9,8 +9,8 @@ public class BlockButton : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitUntil(()=>GameData.player != null);
-        player = GameData.player;
+        yield return new WaitUntil(()=>Data.player != null);
+        player = Data.player;
     }
     
     public void OnButtonHeld(){

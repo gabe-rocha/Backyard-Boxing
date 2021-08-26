@@ -23,7 +23,7 @@ public class ItemSelectionButton : MonoBehaviour
             return;
         }
 
-        Player player = GameData.player;
+        Player player = Data.player;
         player.SetWardrobeSlotItem(slotName, wardrobeRecipeName);
     }
 }

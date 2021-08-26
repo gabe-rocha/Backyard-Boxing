@@ -23,10 +23,11 @@ public class Player : MonoBehaviour
     private Coroutine movingCor;
 
     private string avatarRecipeFilename;
+    private const float tiltMinX = 0.5f;
 
     private IEnumerator Start(){
-        yield return new WaitUntil(()=> GameData.gameState == GameData.GameStates.Loading);
-        GameData.player = this;
+        yield return new WaitUntil(()=> Data.gameState == Data.GameStates.Loading);
+        Data.player = this;
         
     }
 
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
         avatar = UMA.GetComponent<DynamicCharacterAvatar>();
         StartCoroutine(BuildAvaterFromRecipe());
 
-        if(GameData.gameState != GameData.GameStates.SelectingCharacter){
+        if(Data.gameState != Data.GameStates.SelectingCharacter){
             transform.position = newUma.transform.position;
         }
         newUma.transform.parent = umaHolder.transform;
@@ -90,7 +91,7 @@ public class Player : MonoBehaviour
     
     public void LoadRecipe()
     {
-        avatarRecipeFilename = $"/playerAvatar{UMA.name}Recipe";
+        avatarRecipeFilename = $"/playerAvatar{UMA.name}Recipe"; //C:\Users\gabri\AppData\LocalLow\DefaultCompany\[production URP] Backyard Boxing
         if(File.Exists(Application.persistentDataPath + avatarRecipeFilename)){
             var myRecipe = File.ReadAllText(Application.persistentDataPath + avatarRecipeFilename);
             if(! string.IsNullOrEmpty(myRecipe)){
@@ -104,14 +105,24 @@ public class Player : MonoBehaviour
     private void Update()
     {
         
-        if(GameData.gameState == GameData.GameStates.Fighting)
+        if(Data.gameState == Data.GameStates.Fighting)
         {
             FaceRingCenter();
-            HandlePunchInputs();
+            HandleTouchInputs();
         }
     }
 
-    private void HandlePunchInputs()
+    public void HandleTiltInput(Vector3 tilt){
+        
+        if(tilt.x > -tiltMinX && tilt.x < tiltMinX)
+        {
+            return;
+        }
+
+        Move(tilt.x < -tiltMinX);
+    }
+
+    private void HandleTouchInputs()
     {
         if(Input.GetMouseButtonDown(0) && 
         Input.mousePosition.x < Screen.width/2f &&

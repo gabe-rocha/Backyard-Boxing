@@ -31,9 +31,9 @@ public class FightManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitUntil(()=>GameData.player != null);
-        player = GameData.player;
-        opponent = GameData.opponent;
+        yield return new WaitUntil(()=>Data.player != null);
+        player = Data.player;
+        opponent = Data.opponent;
         
         //instantiate player
         InstantiatePlayer();
@@ -42,14 +42,13 @@ public class FightManager : MonoBehaviour
 
         //start fight
         StartCoroutine(StartFight());
-        
     }
 
     private IEnumerator StartFight()
     {
         yield return new WaitForSeconds(0.1f);
         Debug.Log("Fight!");
-        GameData.gameState = GameData.GameStates.Fighting;
+        Data.gameState = Data.GameStates.Fighting;
     }
 
     private void InstantiateOpponent()

@@ -82,7 +82,7 @@ public class CharacterCustomizationManager : MonoBehaviour
     }
 
     public void OnButtonPlayPressed(){
-        GameData.gameState = GameData.GameStates.Loading;
+        Data.gameState = Data.GameStates.Loading;
         SceneManager.LoadScene(1);
     }
 

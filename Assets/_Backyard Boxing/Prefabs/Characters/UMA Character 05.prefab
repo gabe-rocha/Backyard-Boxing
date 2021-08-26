@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3011784423479373362
+--- !u!1 &7109171701100808262
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6128384055899743249}
-  - component: {fileID: 150984125118542412}
+  - component: {fileID: 9118293996037526666}
+  - component: {fileID: 4262535795090731810}
   m_Layer: 0
   m_Name: UMARenderer
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6128384055899743249
+--- !u!4 &9118293996037526666
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3011784423479373362}
+  m_GameObject: {fileID: 7109171701100808262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 8098145028077677405}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &150984125118542412
+--- !u!137 &4262535795090731810
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3011784423479373362}
+  m_GameObject: {fileID: 7109171701100808262}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -50,6 +50,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -194,8 +195,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.006638184, y: 0.8320719, z: -0.008270919}
-    m_Extent: {x: 0.34769094, y: 0.9096075, z: 0.44735816}
+    m_Center: {x: -0.006638184, y: 0.84194463, z: -0.008270919}
+    m_Extent: {x: 0.34769094, y: 0.91948026, z: 0.44735816}
   m_DirtyAABB: 0
 --- !u!1 &8098145026834018900
 GameObject:
@@ -3281,9 +3282,9 @@ GameObject:
   - component: {fileID: 8098145028077677406}
   - component: {fileID: 8098145028077677403}
   - component: {fileID: 8098145028077677407}
-  - component: {fileID: 3059174810368568062}
+  - component: {fileID: 1400013280422575275}
   m_Layer: 0
-  m_Name: UMA Character 01
+  m_Name: UMA Character 05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3301,7 +3302,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8098145027085439718}
-  - {fileID: 6128384055899743249}
+  - {fileID: 9118293996037526666}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 145, z: 0}
@@ -3318,7 +3319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 0}
-  umaData: {fileID: 3059174810368568062}
+  umaData: {fileID: 1400013280422575275}
   defaultRendererAsset: {fileID: 0}
   umaRecipe: {fileID: 11400000, guid: 1d97eb041589729479af9716fd5b42b3, type: 2}
   umaAdditionalRecipes:
@@ -3379,6 +3380,13 @@ MonoBehaviour:
       - HumanMale
       - HumanMaleDCS
     - _recipeName: MaleEye1
+      _compatibleRaces:
+      - HumanMale
+      - HumanMaleDCS
+    - _recipeName: MaleHairSlick01_Recipe
+      _compatibleRaces:
+      - HumanMale
+    - _recipeName: MaleShirt2
       _compatibleRaces:
       - HumanMale
       - HumanMaleDCS
@@ -3479,19 +3487,37 @@ MonoBehaviour:
       _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
       Raw: 0
       valuesConverted: 0
+    - name: Hearts
+      channelMask:
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      PropertyBlock:
+        alwaysUpdate: 0
+        serializedProperties: []
+      foldout: 0
+      _name: 
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      Raw: 0
+      valuesConverted: 0
   predefinedDNA:
     PreloadValues: []
   loadPathType: 1
   loadPath: 
-  loadFilename: Default_Bald_NoShirt_White
+  loadFilename: Male_Hair_Shirt_White
   loadString: 
   loadFileOnStart: 1
   ForceSlotMaterials: 0
   AtlasResolutionScale: 1
   defaultLoadOptions: 31
-  savePathType: 0
+  savePathType: 1
   savePath: 
-  saveFilename: 
+  saveFilename: Male_Hair_Shirt_White
   makeUniqueFilename: 0
   ensureSharedColors: 0
   defaultSaveOptions: 15
@@ -3618,7 +3644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bf232d59903984293f6dc1cfb48c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3059174810368568062
+--- !u!114 &1400013280422575275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3631,13 +3657,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers:
-  - {fileID: 150984125118542412}
+  - {fileID: 4262535795090731810}
   umaGenerator: {fileID: 0}
   atlasResolutionScale: 1
-  isMeshDirty: 1
-  isShapeDirty: 1
+  isMeshDirty: 0
+  isShapeDirty: 0
   isTextureDirty: 0
-  isAtlasDirty: 1
+  isAtlasDirty: 0
   animationController: {fileID: 9100000, guid: fae0dce25fe631448a11a9a98563e4bb, type: 2}
   CharacterCreated:
     m_PersistentCalls:
@@ -3695,12 +3721,21 @@ MonoBehaviour:
       Suppressed: 0
       dontSerialize: 0
       rendererAsset: {fileID: 0}
+    - asset: {fileID: 11400000, guid: 78bcc1abec57f9c409e43c37c84b131e, type: 2}
+      overlayScale: 1
+      tags:
+      - Torso
+      Races: []
+      altMaterial: {fileID: 11400000, guid: 8e29dbac5d2e82f44a759a7e2cc568ab, type: 2}
+      Suppressed: 0
+      dontSerialize: 0
+      rendererAsset: {fileID: 0}
     - asset: {fileID: 11400000, guid: e7c8290369e5f724e8e185a77240e37e, type: 2}
       overlayScale: 1
       tags:
       - Feet
       Races: []
-      altMaterial: {fileID: 0}
+      altMaterial: {fileID: 11400000, guid: 8e29dbac5d2e82f44a759a7e2cc568ab, type: 2}
       Suppressed: 0
       dontSerialize: 0
       rendererAsset: {fileID: 0}
@@ -3709,7 +3744,7 @@ MonoBehaviour:
       tags:
       - Hands
       Races: []
-      altMaterial: {fileID: 0}
+      altMaterial: {fileID: 11400000, guid: 8e29dbac5d2e82f44a759a7e2cc568ab, type: 2}
       Suppressed: 0
       dontSerialize: 0
       rendererAsset: {fileID: 0}
@@ -3718,7 +3753,7 @@ MonoBehaviour:
       tags:
       - Legs
       Races: []
-      altMaterial: {fileID: 0}
+      altMaterial: {fileID: 11400000, guid: 8e29dbac5d2e82f44a759a7e2cc568ab, type: 2}
       Suppressed: 0
       dontSerialize: 0
       rendererAsset: {fileID: 0}
@@ -3750,7 +3785,7 @@ MonoBehaviour:
       Suppressed: 0
       dontSerialize: 1
       rendererAsset: {fileID: 0}
-    - asset: {fileID: 11400000, guid: 049023c663609fb4b995c6206aa43ca7, type: 2}
+    - asset: {fileID: 11400000, guid: b50583b1ad6156647a9340322eca92b2, type: 2}
       overlayScale: 1
       tags: []
       Races: []

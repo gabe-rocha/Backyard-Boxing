@@ -15,17 +15,17 @@ public class ItemSelectionBuilder : MonoBehaviour
     // Start is called before the first frame update
     private IEnumerator Start()
     {
-        yield return new WaitUntil(()=>GameData.player != null);
+        yield return new WaitUntil(()=>Data.player != null);
         StartCoroutine(Initialize());
     }
 
     private IEnumerator Initialize(){
         List<ItemSO> listOfItems = new List<ItemSO>();
-        player = GameData.player;
+        player = Data.player;
 
         yield return new WaitUntil(()=>player.Avatar != null); //it may take a while to get the avatar
         
-        if(player.Avatar.activeRace.racedata.raceName == GameData.RACE_NAME_MALE)
+        if(player.Avatar.activeRace.racedata.raceName == Data.RACE_NAME_MALE)
             listOfItems = listOfItemsSO.listOfItemsMale;
         else
             listOfItems = listOfItemsSO.listOfItemsFemale;

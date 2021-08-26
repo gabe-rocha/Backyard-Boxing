@@ -3748,7 +3748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacterPrefab: {fileID: 8098145028077677402, guid: e3b56159eb4caee499ad92f06394b516, type: 3}
-  opponentCharacterPrefab: {fileID: 8098145028077677402, guid: 0e5169b41c92ad44e844cf1612647987, type: 3}
+  opponentCharacterPrefab: {fileID: 8098145028077677402, guid: 0d9c7b1e28704df49b6d6e82a6370e29, type: 3}
   playerSpawnPosition: {fileID: 409192978}
   opponentSpawnPosition: {fileID: 1861490538}
   ringCenter: {fileID: 1340646944}
@@ -18723,6 +18723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340766625113738802}
   - component: {fileID: 4340766625113738801}
+  - component: {fileID: 4340766625113738803}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -18765,6 +18766,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4340766625113738803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4340766625113738800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da100b9580beba49a83cea596b32fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4340766625113738801}
 --- !u!4 &4340766625467557680
 Transform:
   m_ObjectHideFlags: 0

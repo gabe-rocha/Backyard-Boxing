@@ -10,14 +10,13 @@ public class MovementButton : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitUntil(()=> GameData.player != null && GameData.opponent != null);
-        player = GameData.player;
-        opponent = GameData.opponent;
+        yield return new WaitUntil(()=> Data.player != null && Data.opponent != null);
+        player = Data.player;
+        opponent = Data.opponent;
     }
     public void OnMovementButtonPressed(bool left){
         player.Move(left);
         StartCoroutine(MoveOpponent(left));
-        
     }
 
     private IEnumerator MoveOpponent(bool left)
