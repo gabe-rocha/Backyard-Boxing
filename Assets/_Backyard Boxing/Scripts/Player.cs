@@ -12,13 +12,18 @@ public class Player : MonoBehaviour
     [SerializeField] private float movementStepSizeInDegrees = 15f;
     [SerializeField] private float movementSpeed = 0.5f;
     [SerializeField] private GameObject gloveHitBoxLeft, gloveHitBoxRight, headHitBox;
-    
+
 
     private Transform spawnPositionForFight;
     private GameObject UMA;
     private Animator anim;
     private DynamicCharacterAvatar avatar;
     public DynamicCharacterAvatar Avatar { get => avatar; set => avatar = value; }
+
+    internal void Rotate(float deltaX)
+    {
+        transform.Rotate(Vector3.up * deltaX, Space.World);
+    }
 
     private Coroutine movingCor;
 
@@ -108,35 +113,14 @@ public class Player : MonoBehaviour
         if(Data.gameState == Data.GameStates.Fighting)
         {
             FaceRingCenter();
-            HandleTouchInputs();
         }
     }
 
     public void HandleTiltInput(Vector3 tilt){
-        
-        if(tilt.x > -tiltMinX && tilt.x < tiltMinX)
-        {
-            return;
-        }
-
         Move(tilt.x < -tiltMinX);
     }
 
-    private void HandleTouchInputs()
-    {
-        if(Input.GetMouseButtonDown(0) && 
-        Input.mousePosition.x < Screen.width/2f &&
-        Input.mousePosition.y > Screen.height * 0.33f){
-            Jab(true);
-        }
-        else if(Input.GetMouseButtonDown(0) && 
-        Input.mousePosition.x > Screen.width/2f &&
-        Input.mousePosition.y > Screen.height * 0.33f){
-            Jab(false);
-        }
-    }
-
-    private void Jab(bool left)
+    public void Jab(bool left)
     {
         if(left){
             anim.ResetTrigger("Jab Right");
@@ -156,6 +140,15 @@ public class Player : MonoBehaviour
             StopCoroutine(movingCor);
         }
         movingCor = StartCoroutine(MoveCoRo(left));
+    }
+    internal void Slip(bool left)
+    {
+        if(left){
+            anim.SetTrigger("Slip Left");
+        }
+        else{
+            anim.SetTrigger("Slip Right");
+        }
     }
 
     private IEnumerator MoveCoRo(bool left){
@@ -186,7 +179,8 @@ public class Player : MonoBehaviour
 
     private void FaceRingCenter()
     {
-        transform.LookAt(ringCenter.position);
+        if(ringCenter != null)
+            transform.LookAt(ringCenter.position);
     }
 
 

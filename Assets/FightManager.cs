@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FightManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class FightManager : MonoBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator Start()
@@ -61,5 +62,9 @@ public class FightManager : MonoBehaviour
     {
         var playerChar = Instantiate(playerCharacterPrefab, playerSpawnPosition.position, Quaternion.identity);
         player.SetUMA(playerChar);
+    }
+
+    public void OnButtonBackPressed(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //TODO
     }
 }

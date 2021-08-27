@@ -10,6 +10,7 @@ public class CharacterSelection : MonoBehaviour
 
     private IEnumerator Start()
     {
+        Data.gameState = Data.GameStates.Loading;
         yield return new WaitUntil(()=>Data.player != null);
         Data.gameState = Data.GameStates.SelectingCharacter;
 

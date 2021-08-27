@@ -19,4 +19,9 @@ public static class Data
     public static string SLOT_NAME_CHEST = "Chest";
     public static string RACE_NAME_MALE = "HumanMale";
     public static string RACE_NAME_FEMALE = "HumanFemale";
+
+    public static float tiltMinX = 0.5f;
+    public static float movementStepDelay = 3f; //max 1 step every movementStepRate
+    public static float fightJabDelay = 0.5f;
+    public static float fightSlipDelay = 1f;
 }

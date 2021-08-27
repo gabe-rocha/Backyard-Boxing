@@ -37,6 +37,7 @@ public class OpponentAI : MonoBehaviour
         ScreenFlash.instance.Flash(UnityEngine.Random.Range(0.25f, 0.5f));
     }
 
+
     public void SetUMA(GameObject newUma){
         UMA = newUma;
         Avatar = UMA.GetComponent<DynamicCharacterAvatar>();
@@ -75,6 +76,12 @@ public class OpponentAI : MonoBehaviour
     {
         transform.LookAt(ringCenter.position);
     }
+
+    
+    internal void HandleTiltInput(Vector3 tilt)
+    {
+        Move(tilt.x < 0);
+    }
     public void Move(bool left)
     {
         if(movingCor != null){
@@ -87,10 +94,12 @@ public class OpponentAI : MonoBehaviour
 
     private IEnumerator MoveCoRo(bool left){
 
-        if(left)
+        if(left){
             anim.SetTrigger("Move Left");
-        else
+        }
+        else{
             anim.SetTrigger("Move Right");
+        }
 
         var movementStep = left ? movementStepSizeInDegrees : -movementStepSizeInDegrees;
 

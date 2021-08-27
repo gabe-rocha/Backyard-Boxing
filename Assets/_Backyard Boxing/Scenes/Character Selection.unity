@@ -712,8 +712,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42315908}
-  m_LocalRotation: {x: -0.059507072, y: -0.4971723, z: -0.034203414, w: 0.86493284}
-  m_LocalPosition: {x: -13.56, y: 0.27, z: -11.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1084226264}
@@ -6330,6 +6330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013481934}
   - component: {fileID: 1013481933}
+  - component: {fileID: 1013481935}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6363,15 +6364,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013481932}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0.4983439, z: 0, w: 0.8669795}
+  m_LocalPosition: {x: -13.56, y: 0.27, z: -11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1410924246}
   - {fileID: 42315909}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -59.781, z: 0}
+--- !u!114 &1013481935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013481932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da100b9580beba49a83cea596b32fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1016474949
 GameObject:
   m_ObjectHideFlags: 0
@@ -6554,7 +6567,7 @@ MonoBehaviour:
   listUMAS:
   - {fileID: 8098145028077677402, guid: e3b56159eb4caee499ad92f06394b516, type: 3}
   - {fileID: 8098145028077677402, guid: aebdd8fa3199d2b4ea022ad5a2f3dff6, type: 3}
-  - {fileID: 8098145028077677402, guid: b16367fd7c5ed30478f6a8f4bcf8a16d, type: 3}
+  - {fileID: 8098145028077677402, guid: f67a6ff8533d851448a17320a711bda5, type: 3}
   - {fileID: 8098145028077677402, guid: 0e5169b41c92ad44e844cf1612647987, type: 3}
   UMASpawnPosition: {fileID: 42315909}
 --- !u!4 &1055245231
