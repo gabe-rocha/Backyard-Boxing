@@ -14,9 +14,15 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitUntil(()=> Data.player != null && Data.opponent != null);
-        player = Data.player;
-        opponent = Data.opponent;
+        
+        if(Data.gameState == Data.GameStates.Fighting){
+            yield return new WaitUntil(()=> Data.player != null && Data.opponent != null);
+            player = Data.player;
+            opponent = Data.opponent;
+        }
+        else{
+            player = GetComponent<Player>();
+        }
 
         canMoveLeft = true;
         canMoveRight = true;
@@ -33,14 +39,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(player == null || opponent == null){
-            return;
-        }
 
         if(Data.gameState == Data.GameStates.SelectingCharacter)
-            CharacterSelection();
+            HandleCharScreenRotation();
 
         if(Data.gameState == Data.GameStates.Fighting) {
+            // if(player == null || opponent == null){
+            //     return;
+            // }
             HandleAcceletometer();
             HandleFightInput();
         }
@@ -106,17 +112,17 @@ public class PlayerController : MonoBehaviour
         canJabRight = true;
     }
 
-    private void CharacterSelection()
+    private void HandleCharScreenRotation()
     {
-            if(Input.GetMouseButtonDown(0)){
-                lastTouchX = Input.mousePosition.x;
-            }
-            if(Input.GetMouseButton(0)){
-                var deltaX = Input.mousePosition.x - lastTouchX;
-                deltaX /= -5f;
-                player.Rotate(deltaX);
+        if(Input.GetMouseButtonDown(0)){
+            lastTouchX = Input.mousePosition.x;
+        }
+        if(Input.GetMouseButton(0)){
+            var deltaX = Input.mousePosition.x - lastTouchX;
+            deltaX /= -5f;
+            player.Rotate(deltaX);
 
-                lastTouchX = Input.mousePosition.x;
-            }
+            lastTouchX = Input.mousePosition.x;
+        }
     }
 }

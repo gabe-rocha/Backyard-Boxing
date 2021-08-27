@@ -128,7 +128,7 @@ Material:
     - _CullModeForward: 0
     - _Cutoff: 0.476
     - _DetailNormalMapScale: 1
-    - _DitherBoost: 68.2
+    - _DitherBoost: 74
     - _DitherBoosts: 9.5
     - _DoubleSidedEnable: 1
     - _DoubleSidedNormalMode: 2
@@ -148,13 +148,13 @@ Material:
     - _NormalIntensity: 1
     - _OcclusionStrength: 1
     - _OpacityBoost: 6.6
-    - _OpacityBoots: 0.05
+    - _OpacityBoots: 0.16
     - _Parallax: 0.02
     - _ReceivesSSR: 1
     - _RequireSplitLighting: 0
     - _RimTransmissionIntensity: 0.01
     - _Roughness: 1.5
-    - _RoughnessRoot: 0.06
+    - _RoughnessRoot: 0.37
     - _RoughnessTip: 0.06
     - _SecondarySpeculatTint: 0.05
     - _SmoothnessTextureChannel: 0

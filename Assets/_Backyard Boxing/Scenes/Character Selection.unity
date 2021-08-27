@@ -1103,7 +1103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -454, y: 565}
+  m_AnchoredPosition: {x: 3255.0005, y: 573.99994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &86640322
@@ -2582,7 +2582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -454, y: 565}
+  m_AnchoredPosition: {x: 3255.0005, y: 573.99994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &384653102
@@ -5390,7 +5390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -454, y: 565}
+  m_AnchoredPosition: {x: 3255.0005, y: 573.99994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &846871283
@@ -6567,7 +6567,7 @@ MonoBehaviour:
   listUMAS:
   - {fileID: 8098145028077677402, guid: e3b56159eb4caee499ad92f06394b516, type: 3}
   - {fileID: 8098145028077677402, guid: aebdd8fa3199d2b4ea022ad5a2f3dff6, type: 3}
-  - {fileID: 8098145028077677402, guid: f67a6ff8533d851448a17320a711bda5, type: 3}
+  - {fileID: 8098145028077677402, guid: b16367fd7c5ed30478f6a8f4bcf8a16d, type: 3}
   - {fileID: 8098145028077677402, guid: 0e5169b41c92ad44e844cf1612647987, type: 3}
   UMASpawnPosition: {fileID: 42315909}
 --- !u!4 &1055245231
@@ -11659,7 +11659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -454, y: 565}
+  m_AnchoredPosition: {x: 3255, y: 574}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1673039675
