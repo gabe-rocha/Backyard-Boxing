@@ -39,7 +39,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        if(player == null || opponent == null){
+            player = Data.player;
+            opponent = Data.opponent;
+        }
         if(Data.gameState == Data.GameStates.SelectingCharacter)
             HandleCharScreenRotation();
 
@@ -48,7 +51,7 @@ public class PlayerController : MonoBehaviour
             //     return;
             // }
             HandleAcceletometer();
-            HandleFightInput();
+            // HandleFightInput();
         }
     }
 
@@ -82,19 +85,19 @@ public class PlayerController : MonoBehaviour
         canMoveRight = true;
     }
 
-    private void HandleFightInput()
+    public void HandleFightInput(bool left)
     {
-        if(Input.GetMouseButtonDown(0) &&
-            Input.mousePosition.x < Screen.width/2f &&
-            Input.mousePosition.y > Screen.height * 0.33f &&
-            canJabLeft){
-                StartCoroutine(JabLeft());
+        // if(Input.GetMouseButtonDown(0) &&
+        //     Input.mousePosition.x < Screen.width/2f &&
+        //     Input.mousePosition.y > Screen.height * 0.33f &&
+        // else if(Input.GetMouseButtonDown(0) &&
+        //     Input.mousePosition.x > Screen.width/2f &&
+        //     Input.mousePosition.y > Screen.height * 0.33f &&
 
+        if(left && canJabLeft){
+                StartCoroutine(JabLeft());
         }
-        else if(Input.GetMouseButtonDown(0) &&
-            Input.mousePosition.x > Screen.width/2f &&
-            Input.mousePosition.y > Screen.height * 0.33f &&
-            canJabRight){
+        else if(!left && canJabRight){
                 StartCoroutine(JabRight());
         }
     }
