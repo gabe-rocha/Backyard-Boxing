@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Start()
     {
-        
+
         if(Data.gameState == Data.GameStates.Fighting){
             yield return new WaitUntil(()=> Data.player != null && Data.opponent != null);
             player = Data.player;
@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
 
         canMoveLeft = true;
         canMoveRight = true;
-        canSlipLeft = true; 
-        canSlipRight = true; 
-        canBlock = true; 
+        canSlipLeft = true;
+        canSlipRight = true;
+        canBlock = true;
         canJabLeft = true;
         canJabRight = true;
         canHookLeft = true;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         if(tilt.x > -Data.tiltMinX && tilt.x < Data.tiltMinX){
             return;
         }else{
-            if(tilt.x <= -Data.tiltMinX && canMoveLeft){                
+            if(tilt.x <= -Data.tiltMinX && canMoveLeft){
                 StartCoroutine(MoveLeft(tilt));
             }
             else if(tilt.x >= Data.tiltMinX && canMoveRight){
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(Data.movementStepDelay);
         canMoveLeft = true;
     }
-    
+
     private IEnumerator MoveRight(Vector3 tilt){
         canMoveRight = false;
         player.HandleTiltInput(tilt);
@@ -84,14 +84,14 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFightInput()
     {
-        if(Input.GetMouseButtonDown(0) && 
+        if(Input.GetMouseButtonDown(0) &&
             Input.mousePosition.x < Screen.width/2f &&
             Input.mousePosition.y > Screen.height * 0.33f &&
             canJabLeft){
                 StartCoroutine(JabLeft());
-            
+
         }
-        else if(Input.GetMouseButtonDown(0) && 
+        else if(Input.GetMouseButtonDown(0) &&
             Input.mousePosition.x > Screen.width/2f &&
             Input.mousePosition.y > Screen.height * 0.33f &&
             canJabRight){

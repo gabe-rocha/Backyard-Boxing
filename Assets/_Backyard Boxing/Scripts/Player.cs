@@ -28,12 +28,11 @@ public class Player : MonoBehaviour
     private Coroutine movingCor;
 
     private string avatarRecipeFilename;
-    private const float tiltMinX = 0.5f;
 
     private IEnumerator Start(){
         yield return new WaitUntil(()=> Data.gameState == Data.GameStates.Loading);
         Data.player = this;
-        
+
     }
 
     private void SetupHitBoxes()
@@ -51,7 +50,7 @@ public class Player : MonoBehaviour
         Instantiate(headHitBox, head);
     }
 
-    public void SetWardrobeSlotItem(string slot, string recipe){         
+    public void SetWardrobeSlotItem(string slot, string recipe){
         if(Avatar != null){
             Avatar.SetSlot(slot, recipe);
             Avatar.BuildCharacter();
@@ -93,7 +92,7 @@ public class Player : MonoBehaviour
         yield return new WaitUntil(()=>avatar != null);
         LoadRecipe();
     }
-    
+
     public void LoadRecipe()
     {
         avatarRecipeFilename = $"/playerAvatar{UMA.name}Recipe"; //C:\Users\gabri\AppData\LocalLow\DefaultCompany\[production URP] Backyard Boxing
@@ -109,7 +108,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        
+
         if(Data.gameState == Data.GameStates.Fighting)
         {
             FaceRingCenter();
@@ -117,7 +116,7 @@ public class Player : MonoBehaviour
     }
 
     public void HandleTiltInput(Vector3 tilt){
-        Move(tilt.x < -tiltMinX);
+        Move(tilt.x < -Data.tiltMinX);
     }
 
     public void Jab(bool left)
