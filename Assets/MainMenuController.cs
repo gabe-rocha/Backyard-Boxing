@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,10 +12,11 @@ public class MainMenuController : MonoBehaviour {
 #endregion
 
 #region Private Serializable Fields
-
+    [SerializeField] GameObject goWaitingForTapScreen, goMainMenuScreen;
 #endregion
 
 #region Private Fields
+    bool isWaitingForTap = true;
 #endregion
 
 #region MonoBehaviour CallBacks
@@ -27,15 +29,29 @@ public class MainMenuController : MonoBehaviour {
     }
 
     void Start() {
-
+        goMainMenuScreen.SetActive(false);
+        goWaitingForTapScreen.SetActive(true);
     }
 
     void Update() {
+        if(GameManager.Instance.gameState != GameManager.GameStates.MainMenu) {
+            return;
+        }
 
+        if(isWaitingForTap && Input.GetMouseButtonDown(0)) {
+            Debug.Log("Tapped");
+            isWaitingForTap = false;
+            goWaitingForTapScreen.SetActive(false);
+            ShowMainMenu();
+        }
     }
+
 #endregion
 
 #region Private Methods
+    private void ShowMainMenu() {
+        goMainMenuScreen.SetActive(true);
+    }
 
 #endregion
 
