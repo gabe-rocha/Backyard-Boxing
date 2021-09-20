@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be26ea87991ad24db534f639e9b12fc, type: 3}
   m_Name: Abandoned Factory
   m_EditorClassIdentifier: 
+  uniqueID: 0
   environmentSprite: {fileID: 21300000, guid: bd6b6ab45759a064890da86021688053, type: 3}
   environmentName: Abandoned Factory
+  sceneName: Abandoned Factory Fighting Scene

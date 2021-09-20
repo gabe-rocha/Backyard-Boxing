@@ -6,9 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Backyard Boxing/Scenes/Character Selection/Character Selection.unity
+    path: Assets/_Backyard Boxers/Scenes/Main Menu/Main Menu.unity
+    guid: b82924d0e02796c4097af4811649aca1
+  - enabled: 1
+    path: Assets/_Backyard Boxers/Scenes/Character Selection/Character Selection.unity
     guid: 587d8d4a2255c4a469b0774113ad37b9
   - enabled: 1
-    path: Assets/_Backyard Boxing/Scenes/Fighting Demo/Fighting Demo.unity
+    path: Assets/_Backyard Boxers/Scenes/Fighting Demo/Fighting Demo.unity
     guid: ac425837e264c494b90a2c4e681445a3
+  - enabled: 1
+    path: Assets/_Backyard Boxers/Scenes/Environment Selection/Environment Selection.unity
+    guid: c2deac0a3adc6b54395262a0822b5298
+  - enabled: 1
+    path: Assets/_Backyard Boxers/Scenes/Environments/Alleyway Fighting Scene/Alleyway
+      Fighting Scene.unity
+    guid: 805957908b327bb43be5eca1f52b38e7
+  - enabled: 1
+    path: Assets/_Backyard Boxers/Scenes/Environments/Abandoned Factory Fighting
+      Scene/Abandoned Factory Fighting Scene.unity
+    guid: 37489cc3cca2f1f41be40e48995f4744
   m_configObjects: {}

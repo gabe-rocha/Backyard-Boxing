@@ -88,7 +88,7 @@ Material:
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _BlendMode: 0
-    - _Brighness: -2.2
+    - _Brighness: 0.26
     - _Brightness: 0.2
     - _BumpScale: 1
     - _Cull: 0
@@ -164,7 +164,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RootColor: {r: 0.6320754, g: 0.3028695, b: 0, a: 1}
-    - _TangentA: {r: 0, g: 0.1543091, b: 0.5568628, a: 0.003921569}
+    - _TangentA: {r: 1, g: 1, b: 1, a: 0.7176471}
     - _TangentB: {r: 1, g: 0.7653513, b: 0, a: 0.003921569}
     - _TangentC: {r: 0, g: 0.1543091, b: 0.5568628, a: 0.003921569}
     - _TangentD: {r: 1, g: 0.7653513, b: 0, a: 0.003921569}

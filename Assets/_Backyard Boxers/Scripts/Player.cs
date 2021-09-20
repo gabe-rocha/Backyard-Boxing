@@ -1,156 +1,114 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UMA.CharacterSystem;
-using System;
 using System.IO;
+using UMA.CharacterSystem;
+using UnityEngine;
 
-public class Player : MonoBehaviour
-{
-    [SerializeField] GameObject umaHolder;
-    [SerializeField] private Transform ringCenter;
+public class Player : MonoBehaviour {
+    public static Player Instance { get => instance; set => instance = value; }
+
+    [SerializeField] private Transform ringCenter, rosterLookAt;
+    [SerializeField] private Transform spawnPositionForRoster, spawnPositionForFight;
     [SerializeField] private float movementStepSizeInDegrees = 15f;
     [SerializeField] private float movementSpeed = 0.5f;
     [SerializeField] private GameObject gloveHitBoxLeft, gloveHitBoxRight, headHitBox;
+    [SerializeField] private List<GameObject> listOfCharacters;
 
-
-    private Transform spawnPositionForFight;
-    private GameObject UMA;
+    // private GameObject UMA;
     private Animator anim;
-    private DynamicCharacterAvatar avatar;
-    public DynamicCharacterAvatar Avatar { get => avatar; set => avatar = value; }
-
-    internal void Rotate(float deltaX)
-    {
-        transform.Rotate(Vector3.up * deltaX, Space.World);
-    }
-
+    private static Player instance;
+    private GameObject model;
     private Coroutine movingCor;
+    // private DynamicCharacterAvatar avatar;
+    // public DynamicCharacterAvatar Avatar { get => avatar; set => avatar = value; }
 
-    private string avatarRecipeFilename;
-
-    private IEnumerator Start(){
-        yield return new WaitUntil(()=> Data.gameState == Data.GameStates.Loading);
-        Data.player = this;
-
+    private void OnEnable() {
+        EventManager.Instance.StartListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
+    }
+    private void OnDisable() {
+        EventManager.Instance.StopListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
     }
 
-    private void SetupHitBoxes()
-    {
-        var rightHand = transform.FindDeepChild("RightHand");
-        var leftHand = transform.FindDeepChild("LeftHand");
-        var head = transform.FindDeepChild("Head");
+    private void Awake() {
+        if(instance == null) {
+            instance = this;
+        } else {
+            Destroy(this);
+        }
+
+        if(listOfCharacters == null || listOfCharacters.Count == 0) {
+            Debug.LogError("Player has no characters");
+        }
+    }
+
+    private void Start() {
+        //Spawn Character
+        var characterModel = listOfCharacters[PlayerPrefs.GetInt("PlayerCharacter", 0)];
+        // model = Instantiate(characterModel, spawnPositionForFight.position, Quaternion.identity, transform);
+        model = Instantiate(characterModel, spawnPositionForRoster.position, Quaternion.identity, transform);
+        anim = model.GetComponent<Animator>();
+        FaceRingCenter();
+        SetupHitBoxes();
+        //SetupClothes();
+    }
+    private void Update() {
+        if(Data.gameState == Data.GameStates.ShowingRingGirl || Data.gameState == Data.GameStates.Fighting) {
+            FaceRingCenter();
+        } else if(Data.gameState == Data.GameStates.ShowingRoster) {
+            FaceCamera();
+        }
+    }
+
+    private void SetupHitBoxes() {
+        var rightHand = transform.FindDeepChild("middle_01_r");
+        var leftHand = transform.FindDeepChild("middle_01_l");
+        var head = transform.FindDeepChild("head");
 
         gloveHitBoxRight.tag = "Player";
         gloveHitBoxLeft.tag = "Player";
         headHitBox.tag = "Player";
 
-        Instantiate(gloveHitBoxRight, rightHand);
-        Instantiate(gloveHitBoxLeft, leftHand);
-        Instantiate(headHitBox, head);
+        Instantiate(gloveHitBoxRight, rightHand.position, Quaternion.identity, rightHand);
+        Instantiate(gloveHitBoxLeft, leftHand.position, Quaternion.identity, leftHand);
+        Instantiate(headHitBox, head.position, Quaternion.identity, head);
     }
 
-    public void SetWardrobeSlotItem(string slot, string recipe){
-        if(Avatar != null){
-            Avatar.SetSlot(slot, recipe);
-            Avatar.BuildCharacter();
-            SaveRecipe();
-        }
+    internal void Rotate(float deltaX) {
+        transform.Rotate(Vector3.up * deltaX, Space.World);
     }
 
-    public void SaveRecipe()
-    {
-        string myRecipe = avatar.GetCurrentRecipe();
-        File.WriteAllText(Application.persistentDataPath + avatarRecipeFilename, myRecipe);
-        Debug.Log($"File saved to: {Application.persistentDataPath}");
-    }
-
-    internal void DestroyUMA()
-    {
-        if(umaHolder.transform.childCount == 0) return;
-        Destroy(umaHolder.transform.GetChild(0).gameObject);
-        UMA = null;
-    }
-
-    public void SetUMA(GameObject newUma){
-        UMA = newUma;
-        avatar = null;
-        avatar = UMA.GetComponent<DynamicCharacterAvatar>();
-        StartCoroutine(BuildAvaterFromRecipe());
-
-        if(Data.gameState != Data.GameStates.SelectingCharacter){
-            transform.position = newUma.transform.position;
-        }
-        newUma.transform.parent = umaHolder.transform;
-
-        anim = newUma.GetComponent<Animator>();
-        SetupHitBoxes();
-    }
-
-    private IEnumerator BuildAvaterFromRecipe()
-    {
-        yield return new WaitUntil(()=>avatar != null);
-        LoadRecipe();
-    }
-
-    public void LoadRecipe()
-    {
-        avatarRecipeFilename = $"/playerAvatar{UMA.name}Recipe"; //C:\Users\gabri\AppData\LocalLow\DefaultCompany\[production URP] Backyard Boxing
-        if(File.Exists(Application.persistentDataPath + avatarRecipeFilename)){
-            var myRecipe = File.ReadAllText(Application.persistentDataPath + avatarRecipeFilename);
-            if(! string.IsNullOrEmpty(myRecipe)){
-                avatar.ClearSlots();
-                avatar.LoadFromRecipeString(myRecipe);
-                // Avatar.BuildCharacter();
-            }
-        }
-    }
-
-    private void Update()
-    {
-
-        if(Data.gameState == Data.GameStates.Fighting)
-        {
-            FaceRingCenter();
-        }
-    }
-
-    public void HandleTiltInput(Vector3 tilt){
+    public void HandleTiltInput(Vector3 tilt) {
         Move(tilt.x < -Data.tiltMinX);
     }
 
-    public void Jab(bool left)
-    {
-        if(left){
+    public void Jab(bool left) {
+        if(left) {
             anim.ResetTrigger("Jab Right");
             anim.SetTrigger("Jab Left");
-        }
-        else{
+        } else {
             anim.ResetTrigger("Jab Left");
             anim.SetTrigger("Jab Right");
         }
     }
 
-    public void Move(bool left)
-    {
-        if(movingCor != null){
+    public void Move(bool left) {
+        if(movingCor != null) {
             anim.ResetTrigger("Move Left");
             anim.ResetTrigger("Move Right");
             StopCoroutine(movingCor);
         }
         movingCor = StartCoroutine(MoveCoRo(left));
     }
-    internal void Slip(bool left)
-    {
-        if(left){
+    internal void Slip(bool left) {
+        if(left) {
             anim.SetTrigger("Slip Left");
-        }
-        else{
+        } else {
             anim.SetTrigger("Slip Right");
         }
     }
 
-    private IEnumerator MoveCoRo(bool left){
+    private IEnumerator MoveCoRo(bool left) {
 
         if(left)
             anim.SetTrigger("Move Left");
@@ -160,28 +118,34 @@ public class Player : MonoBehaviour
         var movementStep = left ? movementStepSizeInDegrees : -movementStepSizeInDegrees;
 
         var startTime = Time.time;
-        while(Time.time < startTime + movementSpeed){
+        while (Time.time < startTime + movementSpeed) {
             transform.RotateAround(ringCenter.position, Vector3.up, movementStep / movementSpeed * Time.deltaTime);
             yield return null;
         }
     }
-    public void Block(bool start){
-        if(start){
+    public void Block(bool start) {
+        if(start) {
             anim.SetTrigger("Block");
             anim.SetBool("Is Blocking", true);
-        }
-        else{
+        } else {
             anim.ResetTrigger("Block");
             anim.SetBool("Is Blocking", false);
         }
     }
 
-    private void FaceRingCenter()
-    {
+    private void FaceRingCenter() {
         if(ringCenter != null)
-            transform.LookAt(ringCenter.position);
+            model.transform.LookAt(ringCenter.position);
     }
 
+    private void FaceCamera() {
+        if(rosterLookAt != null) {
+            model.transform.LookAt(rosterLookAt.position);
+        }
+    }
 
+    private void OnShowingRingGirl() {
+        model.transform.position = spawnPositionForFight.position;
+    }
 
 }

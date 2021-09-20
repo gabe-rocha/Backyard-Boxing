@@ -1,19 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public static class Data
-{
+public static class Data {
 
-    public enum GameStates{
+    public enum GameStates {
         Loading,
         SelectingCharacter,
+        ShowingRoster,
+        ShowingRingGirl,
         Fighting
     }
 
     public static GameStates gameState = GameStates.Loading;
-    public static Player player;
-    public static OpponentAI opponent;
-
 
     public static string SLOT_NAME_HAIR = "Hair";
     public static string SLOT_NAME_CHEST = "Chest";

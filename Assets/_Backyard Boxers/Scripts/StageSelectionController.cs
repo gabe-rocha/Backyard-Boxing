@@ -16,10 +16,16 @@ public class StageSelectionController : MonoBehaviour {
     [SerializeField] EnvironmentListSO listOfEnvironments;
     [SerializeField] Image environmentImage;
     [SerializeField] TextMeshProUGUI environmentName;
+    [SerializeField] private GameObject goLoadingScreen;
+    [SerializeField] private Slider sliderLoading;
+
 #endregion
 
 #region Private Fields
-    private int environmentSelected;
+    private int environmentSelectedID;
+    private int currentEnvIndexOnList = 0;
+    private string environmentSceneName;
+    private AsyncOperation asyncLoading;
 
 #endregion
 
@@ -45,7 +51,9 @@ public class StageSelectionController : MonoBehaviour {
     }
 
     void Start() {
-        environmentSelected = PlayerPrefs.GetInt("Environment Selected", 0);
+        goLoadingScreen.SetActive(false);
+        sliderLoading.value = 0;
+        environmentSelectedID = PlayerPrefs.GetInt("Environment Selected ID", 0);
         RefreshStage();
     }
 
@@ -57,32 +65,51 @@ public class StageSelectionController : MonoBehaviour {
     }
 
     private void OnButtonPrevPressed() {
-        if(environmentSelected == 0) {
-            environmentSelected = listOfEnvironments.environments.Count - 1;
+        if(currentEnvIndexOnList == 0) {
+            currentEnvIndexOnList = listOfEnvironments.environments.Count - 1;
         } else {
-            environmentSelected--;
+            currentEnvIndexOnList--;
         }
+        environmentSelectedID = listOfEnvironments.environments[currentEnvIndexOnList].uniqueID;
         RefreshStage();
     }
 
     private void OnButtonNextPressed() {
-        if(environmentSelected == listOfEnvironments.environments.Count - 1) {
-            environmentSelected = 0;
+        if(currentEnvIndexOnList == listOfEnvironments.environments.Count - 1) {
+            currentEnvIndexOnList = 0;
         } else {
-            environmentSelected++;
+            currentEnvIndexOnList++;
         }
+        environmentSelectedID = listOfEnvironments.environments[currentEnvIndexOnList].uniqueID;
         RefreshStage();
     }
 
     private void RefreshStage() {
-        environmentName.text = listOfEnvironments.environments[environmentSelected].environmentName;
-        environmentImage.sprite = listOfEnvironments.environments[environmentSelected].environmentSprite;
-        PlayerPrefs.SetInt("Environment Selected", environmentSelected);
+
+        currentEnvIndexOnList = 0;
+        foreach (var env in listOfEnvironments.environments) {
+            if(env.uniqueID == environmentSelectedID) {
+                environmentName.text = env.environmentName;
+                environmentImage.sprite = env.environmentSprite;
+                environmentSceneName = env.sceneName;
+                PlayerPrefs.SetInt("Environment Selected ID", environmentSelectedID);
+                return;
+            }
+            currentEnvIndexOnList++;
+        }
     }
 
     private void OnButtonPlayPressed() {
-        //SceneManager.LoadScene(Data.SceneNames)
-        SceneManager.LoadScene("Fighting Demo");
+        goLoadingScreen.SetActive(true);
+        asyncLoading = SceneManager.LoadSceneAsync(environmentSceneName);
+        StartCoroutine(ShowLoadingScreen());
+    }
+
+    private IEnumerator ShowLoadingScreen() {
+        while (!asyncLoading.isDone) {
+            sliderLoading.value = asyncLoading.progress;
+            yield return null;
+        }
     }
 #endregion
 

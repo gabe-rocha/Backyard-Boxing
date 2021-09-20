@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour {
 #region MonoBehaviour CallBacks
 
     void Awake() {
-        if(Instance == null) {
-            Instance = this;
+        if(instance == null) {
+            instance = this;
             DontDestroyOnLoad(this.gameObject);
 
             Application.targetFrameRate = 60;

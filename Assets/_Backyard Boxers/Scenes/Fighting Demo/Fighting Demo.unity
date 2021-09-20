@@ -1377,7 +1377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409192977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.697, y: 0, z: -7.499}
+  m_LocalPosition: {x: -13.637, y: 0, z: -7.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2079701955}
@@ -2282,14 +2282,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02518dc0071ba2943a4475e982faf49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  umaHolder: {fileID: 1917733639}
   ringCenter: {fileID: 1340646944}
+  spawnPositionForFight: {fileID: 1861490538}
   movementStepSizeInDegrees: 30
   movementSpeed: 0.75
   gloveHitBoxLeft: {fileID: 2013309355549494002, guid: 7ba7a19ad9c984347b8fb32573ab8d65, type: 3}
   gloveHitBoxRight: {fileID: 3218762293123872962, guid: f59d68009354a1445963afdee78d2065, type: 3}
   headHitBox: {fileID: 7965783242113627227, guid: 71a82a0a50d6ee24e8d5e537dd503168, type: 3}
   bloodParticles: {fileID: 4338058662209323941, guid: 0fca61ced8f6eea418b5d15e26fa4cbe, type: 3}
+  listOfOpponents:
+  - {fileID: 3055090926090767754, guid: 9f9d4545e4370fb438742e31ee2f68a1, type: 3}
 --- !u!4 &788325840
 Transform:
   m_ObjectHideFlags: 0
@@ -2649,7 +2651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977906198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.197, y: 1.5, z: -7.499}
+  m_LocalPosition: {x: -14.197, y: 1.562, z: -7.493}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4340766623949264911}
@@ -5483,7 +5485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db3153e479b8ef4eb06cde39ccc0661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCharacterPrefab: {fileID: 8098145028077677402, guid: e3b56159eb4caee499ad92f06394b516, type: 3}
+  playerCharacterPrefab: {fileID: 3055090926090767754, guid: 310fef077bcf7cd44b1f3d934b6ab0e8, type: 3}
   opponentCharacterPrefab: {fileID: 8098145028077677402, guid: 0d9c7b1e28704df49b6d6e82a6370e29, type: 3}
   playerSpawnPosition: {fileID: 409192978}
   opponentSpawnPosition: {fileID: 1861490538}
@@ -5859,7 +5861,7 @@ Transform:
   - {fileID: 1415505169}
   - {fileID: 303370776}
   m_Father: {fileID: 4340766625113738802}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1776538293
 Animator:
@@ -5967,7 +5969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861490537}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.697, y: 0, z: -7.499}
+  m_LocalPosition: {x: -14.747, y: 0, z: -7.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 322686890}
@@ -19884,7 +19886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 1.040556, y: -0.1447353, z: -9.883162}
+  m_FollowOffset: {x: -12.14244, y: -0.07673535, z: -15.50617}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -20129,8 +20131,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4340766624139358521}
-  m_LocalRotation: {x: -0.006768861, y: 0.83336, z: -0.0102080265, w: -0.55259496}
-  m_LocalPosition: {x: 1.135, y: 1.641, z: -1.169}
+  m_LocalRotation: {x: -0.043201607, y: 0.8736804, z: -0.078945935, w: -0.47810438}
+  m_LocalPosition: {x: -12.28, y: 1.641, z: -6.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4340766623970823969}
@@ -20213,8 +20215,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4340766624433801769}
-  m_LocalRotation: {x: -0.006768861, y: 0.83336, z: -0.0102080265, w: -0.55259496}
-  m_LocalPosition: {x: 1.135, y: 1.641, z: -1.169}
+  m_LocalRotation: {x: -0.043201607, y: 0.8736804, z: -0.078945935, w: -0.47810438}
+  m_LocalPosition: {x: -12.28, y: 1.641, z: -6.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4340766624834667782}
@@ -20320,7 +20322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be76e5f14cfee674cb30b491fb72b09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boost: 3.5
+  boost: 4.3
   positionLerpTime: 0.2
   mouseSensitivityCurve:
     serializedVersion: 2
@@ -20444,36 +20446,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!1 &4340766624710062377
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4340766624710062378}
-  m_Layer: 0
-  m_Name: UMA Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4340766624710062378
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4340766624710062377}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4340766625113738802}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4340766624744469308
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20709,8 +20681,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4340766625113738802}
-  - component: {fileID: 4340766625113738801}
   - component: {fileID: 4340766625113738803}
+  - component: {fileID: 4340766625113738801}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -20727,16 +20699,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4340766625113738800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87a0af4c26a4214181cd9e01052247a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b2d4a89c7e133c4ab7c619596730041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  umaHolder: {fileID: 4340766624710062377}
   ringCenter: {fileID: 1340646944}
-  movementStepSizeInDegrees: 30
+  spawnPositionForFight: {fileID: 409192978}
+  movementStepSizeInDegrees: 15
   movementSpeed: 0.5
   gloveHitBoxLeft: {fileID: 2013309355549494002, guid: 7ba7a19ad9c984347b8fb32573ab8d65, type: 3}
   gloveHitBoxRight: {fileID: 3218762293123872962, guid: f59d68009354a1445963afdee78d2065, type: 3}
   headHitBox: {fileID: 7965783242113627227, guid: 71a82a0a50d6ee24e8d5e537dd503168, type: 3}
+  listOfCharacters:
+  - {fileID: 3055090926090767754, guid: 310fef077bcf7cd44b1f3d934b6ab0e8, type: 3}
 --- !u!4 &4340766625113738802
 Transform:
   m_ObjectHideFlags: 0
@@ -20748,7 +20722,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4340766624710062378}
   - {fileID: 1776538292}
   m_Father: {fileID: 0}
   m_RootOrder: 2
