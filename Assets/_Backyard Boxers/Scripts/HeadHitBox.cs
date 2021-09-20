@@ -25,7 +25,8 @@ public class HeadHitBox : MonoBehaviour {
 
         if(!isPlayer) {
             if(other.gameObject.CompareTag("Player")) {
-                opponent.GetHit();
+                var lastPunchDamage = Player.Instance.lastPunchDamage;
+                opponent.GetHit(lastPunchDamage);
             }
         }
     }

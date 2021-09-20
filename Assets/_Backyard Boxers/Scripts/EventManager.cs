@@ -18,12 +18,20 @@ public class EventManager : MonoBehaviour {
         ButtonPlayPressed,
         ButtonPausePressed,
         ButtonOptionsPressed,
+        ButtonSkipRingGirl,
         ButtonQuitPressed,
         ButtonCharacterCustomizationPressed,
         ShowFightRoster,
         ShowRingGirl,
-        StartFight,
-        FightStarted
+        StartFightCountdown,
+        FightStarted,
+        RefreshUI,
+        LastMove,
+        OpponentKO,
+        ShowResults,
+        FightEnded,
+        PlayerKO,
+        ButtonSelectEnvironmentPressed
     }
 
     private Dictionary<Events, UnityEvent> simpleEventDictionary = new Dictionary<Events, UnityEvent>();

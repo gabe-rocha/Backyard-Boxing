@@ -24,10 +24,12 @@ public class MainMenuController : MonoBehaviour {
 #region MonoBehaviour CallBacks
 
     private void OnEnable() {
-        EventManager.Instance.StartListening(EventManager.Events.ButtonCharacterCustomizationPressed, LoadCharacterCustomizationScene);
+        EventManager.Instance.StartListening(EventManager.Events.ButtonCharacterCustomizationPressed, OnLoadCharacterCustomizationScene);
+        EventManager.Instance.StartListening(EventManager.Events.ButtonSelectEnvironmentPressed, OnButtonSelectEnvironmentPressed);
     }
     private void OnDisable() {
-        EventManager.Instance.StopListening(EventManager.Events.ButtonCharacterCustomizationPressed, LoadCharacterCustomizationScene);
+        EventManager.Instance.StopListening(EventManager.Events.ButtonCharacterCustomizationPressed, OnLoadCharacterCustomizationScene);
+        EventManager.Instance.StopListening(EventManager.Events.ButtonSelectEnvironmentPressed, OnButtonSelectEnvironmentPressed);
     }
     void Awake() {
 
@@ -57,12 +59,17 @@ public class MainMenuController : MonoBehaviour {
         goMainMenuScreen.SetActive(true);
         goPlayerMainMenu.SetActive(true);
         goWaitingForTapScreen.SetActive(false);
+        GameManager.Instance.gameState = GameManager.GameStates.MainMenu;
     }
 
-    private void LoadCharacterCustomizationScene() {
+    private void OnLoadCharacterCustomizationScene() {
         if(isWaitingForTap)
             return;
         SceneManager.LoadScene("Character Selection");
+    }
+
+    private void OnButtonSelectEnvironmentPressed() {
+        SceneManager.LoadScene("Environment Selection");
     }
 
 #endregion

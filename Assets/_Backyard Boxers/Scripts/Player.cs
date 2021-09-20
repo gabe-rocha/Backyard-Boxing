@@ -14,20 +14,30 @@ public class Player : MonoBehaviour {
     [SerializeField] private float movementSpeed = 0.5f;
     [SerializeField] private GameObject gloveHitBoxLeft, gloveHitBoxRight, headHitBox;
     [SerializeField] private List<GameObject> listOfCharacters;
+    [SerializeField] internal int maxHealth, health;
 
     // private GameObject UMA;
     private Animator anim;
     private static Player instance;
     private GameObject model;
     private Coroutine movingCor;
+
+    internal string playerName;
+    internal int lastPunchDamage;
     // private DynamicCharacterAvatar avatar;
     // public DynamicCharacterAvatar Avatar { get => avatar; set => avatar = value; }
 
     private void OnEnable() {
         EventManager.Instance.StartListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
+        EventManager.Instance.StartListening(EventManager.Events.StartFightCountdown, OnStartFight);
+        EventManager.Instance.StartListening(EventManager.Events.OpponentKO, OnOpponentKO);
+        EventManager.Instance.StartListening(EventManager.Events.ShowResults, OnShowResults);
     }
     private void OnDisable() {
         EventManager.Instance.StopListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
+        EventManager.Instance.StopListening(EventManager.Events.StartFightCountdown, OnStartFight);
+        EventManager.Instance.StopListening(EventManager.Events.OpponentKO, OnOpponentKO);
+        EventManager.Instance.StopListening(EventManager.Events.ShowResults, OnShowResults);
     }
 
     private void Awake() {
@@ -51,12 +61,17 @@ public class Player : MonoBehaviour {
         FaceRingCenter();
         SetupHitBoxes();
         //SetupClothes();
+
+        maxHealth = PlayerPrefs.GetInt("Player Max Health", 1000);
+        health = maxHealth;
+        playerName = PlayerPrefs.GetString("Player Name", "Player 1");
     }
     private void Update() {
+
         if(Data.gameState == Data.GameStates.ShowingRingGirl || Data.gameState == Data.GameStates.Fighting) {
             FaceRingCenter();
-        } else if(Data.gameState == Data.GameStates.ShowingRoster) {
-            FaceCamera();
+        } else if(Data.gameState == Data.GameStates.ShowingRoster || Data.gameState == Data.GameStates.ShowingResults) {
+            FaceRosterCamera();
         }
     }
 
@@ -86,10 +101,14 @@ public class Player : MonoBehaviour {
         if(left) {
             anim.ResetTrigger("Jab Right");
             anim.SetTrigger("Jab Left");
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Jab Left");
         } else {
             anim.ResetTrigger("Jab Left");
             anim.SetTrigger("Jab Right");
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Jab Right");
         }
+        lastPunchDamage = PlayerPrefs.GetInt("Player Jab Damage", 400);
+
     }
 
     public void Move(bool left) {
@@ -103,17 +122,22 @@ public class Player : MonoBehaviour {
     internal void Slip(bool left) {
         if(left) {
             anim.SetTrigger("Slip Left");
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Slip Left");
         } else {
             anim.SetTrigger("Slip Right");
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Slip Right");
         }
     }
 
     private IEnumerator MoveCoRo(bool left) {
 
-        if(left)
+        if(left) {
             anim.SetTrigger("Move Left");
-        else
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Step Left");
+        } else {
             anim.SetTrigger("Move Right");
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Step Right");
+        }
 
         var movementStep = left ? movementStepSizeInDegrees : -movementStepSizeInDegrees;
 
@@ -127,6 +151,7 @@ public class Player : MonoBehaviour {
         if(start) {
             anim.SetTrigger("Block");
             anim.SetBool("Is Blocking", true);
+            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Block");
         } else {
             anim.ResetTrigger("Block");
             anim.SetBool("Is Blocking", false);
@@ -138,14 +163,47 @@ public class Player : MonoBehaviour {
             model.transform.LookAt(ringCenter.position);
     }
 
-    private void FaceCamera() {
+    private void FaceRosterCamera() {
         if(rosterLookAt != null) {
             model.transform.LookAt(rosterLookAt.position);
         }
     }
 
     private void OnShowingRingGirl() {
+        model.SetActive(false);
+    }
+
+    private void OnStartFight() {
+        StartCoroutine(OnStartFightCor());
+    }
+
+    private IEnumerator OnStartFightCor() {
+        yield return new WaitForSeconds(0.55f);
         model.transform.position = spawnPositionForFight.position;
+        model.SetActive(true);
+    }
+
+    void OnOpponentKO() {
+        StartCoroutine(OnOpponentKOCor());
+    }
+    IEnumerator OnOpponentKOCor() {
+        yield return new WaitForSeconds(1f);
+        anim.SetLayerWeight(1, 0);
+        anim.SetTrigger("Cheer");
+    }
+
+    void OnShowResults() {
+        StartCoroutine(OnShowResultsCor());
+    }
+
+    private IEnumerator OnShowResultsCor() {
+        yield return new WaitForSeconds(1f);
+        model.transform.position = spawnPositionForRoster.position;
+        FaceRosterCamera();
+        if(!FightManager.Instance.isPlayerWinner) {
+            anim.SetTrigger("Be Sad");
+        }
+        yield return null;
     }
 
 }

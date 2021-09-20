@@ -8,7 +8,9 @@ public static class Data {
         SelectingCharacter,
         ShowingRoster,
         ShowingRingGirl,
-        Fighting
+        Fighting,
+        ShowingResults,
+        FightEnd
     }
 
     public static GameStates gameState = GameStates.Loading;

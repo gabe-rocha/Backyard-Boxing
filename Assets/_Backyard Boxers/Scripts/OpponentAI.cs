@@ -17,8 +17,11 @@ public class OpponentAI : MonoBehaviour {
     [SerializeField] private GameObject gloveHitBoxLeft, gloveHitBoxRight, headHitBox;
     [SerializeField] private GameObject bloodParticles;
     [SerializeField] private List<GameObject> listOfOpponents;
+    [SerializeField] internal int maxHealth, health;
 
     // private GameObject UMA;
+
+    internal string opponentName;
     private Animator anim;
     private GameObject model;
     // private DynamicCharacterAvatar avatar;
@@ -28,9 +31,13 @@ public class OpponentAI : MonoBehaviour {
 
     private void OnEnable() {
         EventManager.Instance.StartListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
+        EventManager.Instance.StartListening(EventManager.Events.StartFightCountdown, OnStartFight);
+        EventManager.Instance.StartListening(EventManager.Events.ShowResults, OnShowResults);
     }
     private void OnDisable() {
         EventManager.Instance.StopListening(EventManager.Events.ShowRingGirl, OnShowingRingGirl);
+        EventManager.Instance.StopListening(EventManager.Events.StartFightCountdown, OnStartFight);
+        EventManager.Instance.StopListening(EventManager.Events.ShowResults, OnShowResults);
     }
     private void Awake() {
         if(instance == null) {
@@ -51,13 +58,18 @@ public class OpponentAI : MonoBehaviour {
         FaceRingCenter();
         SetupHitBoxes();
         //SetupClothes();
+
+        maxHealth = PlayerPrefs.GetInt("Opponent Max Health", 1000);
+        health = maxHealth;
+        opponentName = PlayerPrefs.GetString("Opponent Name", "John Doe");
     }
 
     private void Update() {
+
         if(Data.gameState == Data.GameStates.ShowingRingGirl || Data.gameState == Data.GameStates.Fighting) {
             FaceRingCenter();
-        } else if(Data.gameState == Data.GameStates.ShowingRoster) {
-            FaceCamera();
+        } else if(Data.gameState == Data.GameStates.ShowingRoster || Data.gameState == Data.GameStates.ShowingResults) {
+            FaceRosterCamera();
         }
     }
 
@@ -75,13 +87,27 @@ public class OpponentAI : MonoBehaviour {
         Instantiate(headHitBox, head.position, Quaternion.identity, head);
     }
 
-    internal void GetHit() {
+    internal void GetHit(int damageAmount) {
+        // if(isBlocking) {
+        // health -= damageAmount / 2f;
+        // } else {
         anim.ResetTrigger("Get Hit");
         anim.SetTrigger("Get Hit");
         var head = transform.FindDeepChild("head");
-
         Instantiate(bloodParticles, head.position, bloodParticles.transform.rotation);
         ScreenFlash.instance.Flash(UnityEngine.Random.Range(0.25f, 0.5f));
+
+        health -= damageAmount;
+        if(health <= 0) {
+            health = 0;
+            anim.SetTrigger("Faint");
+            anim.SetLayerWeight(1, 0);
+            EventManager.Instance.TriggerEvent(EventManager.Events.OpponentKO);
+        }
+        // }
+
+        EventManager.Instance.TriggerEvent(EventManager.Events.RefreshUI);
+
     }
 
     private void FaceRingCenter() {
@@ -117,13 +143,36 @@ public class OpponentAI : MonoBehaviour {
         }
 
     }
-    private void FaceCamera() {
+    private void FaceRosterCamera() {
         if(rosterLookAt != null) {
             model.transform.LookAt(rosterLookAt.position);
         }
     }
 
     private void OnShowingRingGirl() {
+        model.SetActive(false);
+    }
+    private void OnStartFight() {
+        StartCoroutine(OnStartFightCor());
+    }
+
+    private IEnumerator OnStartFightCor() {
+        yield return new WaitForSeconds(0.55f);
         model.transform.position = spawnPositionForFight.position;
+        model.SetActive(true);
+    }
+
+    void OnShowResults() {
+        StartCoroutine(OnShowResultsCor());
+    }
+
+    private IEnumerator OnShowResultsCor() {
+        yield return new WaitForSeconds(1f);
+        model.transform.position = spawnPositionForRoster.position;
+        FaceRosterCamera();
+        if(FightManager.Instance.isPlayerWinner) {
+            anim.SetTrigger("Be Sad");
+        }
+        yield return null;
     }
 }
