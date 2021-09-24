@@ -94,8 +94,8 @@ public class OpponentAI : MonoBehaviour {
         anim.ResetTrigger("Get Hit");
         anim.SetTrigger("Get Hit");
         var head = transform.FindDeepChild("head");
-        Instantiate(bloodParticles, head.position, bloodParticles.transform.rotation);
-        ScreenFlash.instance.Flash(UnityEngine.Random.Range(0.25f, 0.5f));
+        Instantiate(bloodParticles, head.position, Quaternion.identity, null);
+        // ScreenFlash.instance.Flash(UnityEngine.Random.Range(0.25f, 0.5f));
 
         health -= damageAmount;
         if(health <= 0) {

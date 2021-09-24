@@ -22,7 +22,16 @@ public class GameManager : MonoBehaviour {
 
 #region Private Fields
     private static GameManager instance;
+
+    internal bool firstLoad = true;
 #endregion
+
+    private void OnEnable() {
+        EventManager.Instance.StartListening(EventManager.Events.MainMenuTapped, OnMainMenuTapped);
+    }
+    private void OnDisable() {
+        EventManager.Instance.StopListening(EventManager.Events.MainMenuTapped, OnMainMenuTapped);
+    }
 
 #region MonoBehaviour CallBacks
 
@@ -49,6 +58,9 @@ public class GameManager : MonoBehaviour {
 #endregion
 
 #region Private Methods
+    void OnMainMenuTapped() {
+        firstLoad = false;
+    }
 #endregion
 
 #region Public Methods

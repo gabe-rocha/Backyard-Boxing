@@ -11,12 +11,12 @@ public class ButtonPunches : MonoBehaviour {
 
     public void OnButtonLeftSidePressed() {
         if(playerController != null) {
-            playerController.HandleFightInput(true);
+            playerController.Jab();
         }
     }
     public void OnButtonRightSidePressed() {
         if(playerController != null) {
-            playerController.HandleFightInput(false);
+            playerController.Cross();
         }
     }
 

@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour {
 
     private float lastTouchX;
     private Vector3 tilt;
-    private bool canMoveLeft, canMoveRight, canSlipLeft, canSlipRight, canBlock, canJabLeft, canJabRight, canHookLeft, canHookRight, canUppercutLeft, canUppercutRight;
+    private bool canMove, canSlip, canBlock, canJab, canCross, canHook, canUppercut;
+    private Vector2 touchInitialPosition, touchCurrentPosition, touchEndPosition, touchDelta;
 
     private void Start() {
 
@@ -20,17 +21,13 @@ public class PlayerController : MonoBehaviour {
             player = GetComponent<Player>();
         }
 
-        canMoveLeft = true;
-        canMoveRight = true;
-        canSlipLeft = true;
-        canSlipRight = true;
+        canMove = true;
+        canSlip = true;
         canBlock = true;
-        canJabLeft = true;
-        canJabRight = true;
-        canHookLeft = true;
-        canHookRight = true;
-        canUppercutLeft = true;
-        canUppercutRight = true;
+        canJab = true;
+        canCross = true;
+        canHook = true;
+        canUppercut = true;
     }
 
     void Update() {
@@ -47,6 +44,88 @@ public class PlayerController : MonoBehaviour {
             // }
             HandleAcceletometer();
             // HandleFightInput();
+            HandleSwipes();
+        }
+    }
+
+    private void HandleSwipes() {
+        if(Input.touchCount > 0) {
+            //we care just about the 1st finger
+            if(Input.touches[0].phase == TouchPhase.Began) {
+                touchInitialPosition = Input.touches[0].position;
+                touchCurrentPosition = touchInitialPosition;
+            } else if(Input.touches[0].phase == TouchPhase.Moved) {
+                touchCurrentPosition = Input.touches[0].position;
+            } else if(Input.touches[0].phase == TouchPhase.Ended) {
+                touchEndPosition = Input.touches[0].position;
+                touchDelta = touchEndPosition - touchInitialPosition;
+
+                if(touchDelta.x < 100 && touchDelta.y > 100) {
+                    //swiped up
+                    Debug.Log($"Swiped up\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    if(touchInitialPosition.x > touchEndPosition.x) {
+                        UppercutLeft();
+                    } else {
+                        UppercutRight();
+                    }
+                } else if(touchDelta.x > 100 && touchDelta.y < 100) {
+                    //swiped right
+                    Debug.Log($"Swiped Right\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    HookLeft();
+                } else if(touchDelta.x < -100 && touchDelta.y > -100) {
+                    //swiped left
+                    Debug.Log($"Swiped Left\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    HookRight();
+                } else if(touchDelta.x > -100 && touchDelta.y < -100) {
+                    //swiped down
+                    Debug.Log($"Swiped Down\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    //???
+                } else if(touchDelta.x > 100 && touchDelta.y > 100) {
+                    //Diagonal right up
+                    if(Mathf.Abs(touchDelta.x) > Mathf.Abs(touchDelta.y)) {
+                        Debug.Log($"Swiped Right\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        HookLeft();
+                    } else {
+                        Debug.Log($"Swiped Up\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        if(touchInitialPosition.x > touchEndPosition.x) {
+                            UppercutLeft();
+                        } else {
+                            UppercutRight();
+                        }
+                    }
+                } else if(touchDelta.x > 100 && touchDelta.y < 100) {
+                    //Diagonal right down
+                    if(Mathf.Abs(touchDelta.x) > Mathf.Abs(touchDelta.y)) {
+                        Debug.Log($"Swiped Right\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        HookLeft();
+                    } else {
+                        Debug.Log($"Swiped Down\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    }
+                } else if(touchDelta.x < -100 && touchDelta.y > 100) {
+                    //Diagonal left up
+                    if(Mathf.Abs(touchDelta.x) > Mathf.Abs(touchDelta.y)) {
+                        Debug.Log($"Swiped Left\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        HookRight();
+                    } else {
+                        Debug.Log($"Swiped Up\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        if(touchInitialPosition.x > touchEndPosition.x) {
+                            UppercutLeft();
+                        } else {
+                            UppercutRight();
+                        }
+                    }
+                } else if(touchDelta.x < -100 && touchDelta.y < -100) {
+                    //Diagonal left down
+                    if(Mathf.Abs(touchDelta.x) > Mathf.Abs(touchDelta.y)) {
+                        Debug.Log($"Swiped Left\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                        HookRight();
+                    } else {
+                        Debug.Log($"Swiped Down\ndeltaX: {touchDelta.x}\ndeltaY: {touchDelta.y}");
+                    }
+                } else {
+                    //just a tap we handle it with invisible on-screen buttons
+                }
+            }
         }
     }
 
@@ -55,56 +134,102 @@ public class PlayerController : MonoBehaviour {
         if(tilt.x > -Data.tiltMinX && tilt.x < Data.tiltMinX) {
             return;
         } else {
-            if(tilt.x <= -Data.tiltMinX && canMoveLeft) {
+            if(tilt.x <= -Data.tiltMinX && canMove) {
                 StartCoroutine(MoveLeft(tilt));
-            } else if(tilt.x >= Data.tiltMinX && canMoveRight) {
+            } else if(tilt.x >= Data.tiltMinX && canMove) {
                 StartCoroutine(MoveRight(tilt));
             }
         }
     }
+
     private IEnumerator MoveLeft(Vector3 tilt) {
-        canMoveLeft = false;
+        canMove = false;
         player.HandleTiltInput(tilt);
         opponent.HandleTiltInput(tilt);
         yield return new WaitForSeconds(Data.movementStepDelay);
-        canMoveLeft = true;
+        canMove = true;
     }
 
     private IEnumerator MoveRight(Vector3 tilt) {
-        canMoveRight = false;
+        canMove = false;
         player.HandleTiltInput(tilt);
         opponent.HandleTiltInput(tilt);
         yield return new WaitForSeconds(Data.movementStepDelay);
-        canMoveRight = true;
+        canMove = true;
     }
 
-    public void HandleFightInput(bool left) {
-        // if(Input.GetMouseButtonDown(0) &&
-        //     Input.mousePosition.x < Screen.width/2f &&
-        //     Input.mousePosition.y > Screen.height * 0.33f &&
-        // else if(Input.GetMouseButtonDown(0) &&
-        //     Input.mousePosition.x > Screen.width/2f &&
-        //     Input.mousePosition.y > Screen.height * 0.33f &&
-
-        if(left && canJabLeft) {
-            StartCoroutine(JabLeft());
-        } else if(!left && canJabRight) {
-            StartCoroutine(JabRight());
+    public void Jab() {
+        if(canJab) {
+            StartCoroutine(JabCor());
         }
     }
+    private IEnumerator JabCor() {
+        canJab = false;
+        player.Jab();
+        yield return new WaitForSeconds(Data.fightJabDelay);
+        canJab = true;
+    }
 
-    private IEnumerator JabLeft() {
-        canJabLeft = false;
-        player.Jab(true);
-        yield return new WaitForSeconds(Data.fightJabDelay);
-        canJabLeft = true;
+    public void Cross() {
+        if(canCross) {
+            StartCoroutine(CrossCor());
+        }
     }
-    private IEnumerator JabRight() {
-        canJabRight = false;
-        player.Jab(false);
-        yield return new WaitForSeconds(Data.fightJabDelay);
-        canJabRight = true;
+    private IEnumerator CrossCor() {
+        canCross = false;
+        player.Cross();
+        yield return new WaitForSeconds(Data.fightCrossDelay);
+        canCross = true;
     }
+
+    private void HookLeft() {
+        if(canHook) {
+            StartCoroutine(HookLeftCor());
+        }
+    }
+    private IEnumerator HookLeftCor() {
+        canHook = false;
+        player.HookLeft();
+        yield return new WaitForSeconds(Data.fightHookDelay);
+        canHook = true;
+    }
+    private void HookRight() {
+        if(canHook) {
+            StartCoroutine(HookRightCor());
+        }
+    }
+    private IEnumerator HookRightCor() {
+        canHook = false;
+        player.HookRight();
+        yield return new WaitForSeconds(Data.fightHookDelay);
+        canHook = true;
+    }
+
+    private void UppercutLeft() {
+        if(canUppercut) {
+            StartCoroutine(UppercutLeftCor());
+        }
+    }
+    private IEnumerator UppercutLeftCor() {
+        canUppercut = false;
+        player.UppercutLeft();
+        yield return new WaitForSeconds(Data.fightUppercutDelay);
+        canUppercut = true;
+    }
+
+    private void UppercutRight() {
+        if(canUppercut) {
+            StartCoroutine(UppercutRightCor());
+        }
+    }
+    private IEnumerator UppercutRightCor() {
+        canUppercut = false;
+        player.UppercutRight();
+        yield return new WaitForSeconds(Data.fightUppercutDelay);
+        canUppercut = true;
+    }
+
+    /*****************************************************************************/
 
     private void HandleCharScreenRotation() {
         if(Input.GetMouseButtonDown(0)) {

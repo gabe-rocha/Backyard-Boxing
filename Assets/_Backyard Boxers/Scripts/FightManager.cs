@@ -11,6 +11,7 @@ public class FightManager : MonoBehaviour {
     [SerializeField] private GameObject fightUI, rosterUI, ringGirlUI, resultsUI;
     [SerializeField] private float countdownDuration = 3;
     [SerializeField] private TextMeshProUGUI txtVS, txtCountdown;
+    [SerializeField] private GameObject goLoadingScreen;
 
     private static FightManager instance;
     public static FightManager Instance { get { return instance; } }
@@ -54,8 +55,16 @@ public class FightManager : MonoBehaviour {
         yield return new WaitForSeconds(0.25f);
         EventManager.Instance.TriggerEvent(EventManager.Events.ShowFightRoster);
 
+        StartCoroutine(ShowLoadingScreenForABit());
+
         //start fight
         // StartCoroutine(StartFight());
+    }
+
+    private IEnumerator ShowLoadingScreenForABit() {
+        goLoadingScreen.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        goLoadingScreen.SetActive(false);
     }
 
     void OnShowRoster() {
@@ -166,6 +175,7 @@ public class FightManager : MonoBehaviour {
 
     private IEnumerator ShowResultsCor() {
         yield return new WaitForSeconds(5f); //Camera Rotating Around Ring
+        Data.gameState = Data.GameStates.ShowingResults;
         EventManager.Instance.TriggerEvent(EventManager.Events.ShowResults);
         yield return new WaitForSeconds(0.9f); //Fading out
 

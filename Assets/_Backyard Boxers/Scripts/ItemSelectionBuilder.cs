@@ -28,7 +28,7 @@ public class ItemSelectionBuilder : MonoBehaviour {
         foreach (var item in listOfItems) {
             //instantiate a button
             var button = Instantiate(itemButtonTemplate, Vector3.zero, Quaternion.identity, scrollviewContents.transform);
-            button.GetComponent<ItemSelectionButton>().Initialize(item);
+            // button.GetComponent<ItemSelectionButton>().Initialize(item);
         }
         itemButtonTemplate.SetActive(false);
     }

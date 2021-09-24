@@ -18,13 +18,14 @@ public class StageSelectionController : MonoBehaviour {
     [SerializeField] TextMeshProUGUI environmentName;
     [SerializeField] private GameObject goLoadingScreen;
     [SerializeField] private Slider sliderLoading;
+    [SerializeField] private Animator animCameras;
 
 #endregion
 
 #region Private Fields
     private int environmentSelectedID;
     private int currentEnvIndexOnList = 0;
-    private string environmentSceneName;
+    private string sceneName;
     private AsyncOperation asyncLoading;
 
 #endregion
@@ -51,17 +52,36 @@ public class StageSelectionController : MonoBehaviour {
     }
 
     void Start() {
-        goLoadingScreen.SetActive(false);
+        StartCoroutine(ShowLoadingScreenForABit());
         sliderLoading.value = 0;
         environmentSelectedID = PlayerPrefs.GetInt("Environment Selected ID", 0);
-        RefreshStage();
+        RefreshStageData();
+        SetCorrectEnvironment();
+    }
+
+    private void SetCorrectEnvironment() {
+        foreach (var env in listOfEnvironments.environments) {
+            if(env.uniqueID == environmentSelectedID) {
+                return;
+            }
+            animCameras.SetTrigger("Next");
+        }
+    }
+
+    private IEnumerator ShowLoadingScreenForABit() {
+        goLoadingScreen.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        goLoadingScreen.SetActive(false);
     }
 
 #endregion
 
 #region Private Methods
     private void OnButtonBackPressed() {
-        Debug.Log("Button Back Pressed");
+        goLoadingScreen.SetActive(true);
+        sliderLoading.value = 0;
+        sceneName = "Main Menu";
+        StartCoroutine(ShowLoadingScreen());
     }
 
     private void OnButtonPrevPressed() {
@@ -71,7 +91,8 @@ public class StageSelectionController : MonoBehaviour {
             currentEnvIndexOnList--;
         }
         environmentSelectedID = listOfEnvironments.environments[currentEnvIndexOnList].uniqueID;
-        RefreshStage();
+        RefreshStageData();
+        animCameras.SetTrigger("Previous"); //must be called after refreshstage
     }
 
     private void OnButtonNextPressed() {
@@ -81,18 +102,20 @@ public class StageSelectionController : MonoBehaviour {
             currentEnvIndexOnList++;
         }
         environmentSelectedID = listOfEnvironments.environments[currentEnvIndexOnList].uniqueID;
-        RefreshStage();
+        RefreshStageData();
+        animCameras.SetTrigger("Next"); //must be called after refreshstage
     }
 
-    private void RefreshStage() {
-
+    private void RefreshStageData() {
         currentEnvIndexOnList = 0;
         foreach (var env in listOfEnvironments.environments) {
             if(env.uniqueID == environmentSelectedID) {
                 environmentName.text = env.environmentName;
-                environmentImage.sprite = env.environmentSprite;
-                environmentSceneName = env.sceneName;
+                // environmentImage.sprite = env.environmentSprite;
+                sceneName = env.sceneName;
                 PlayerPrefs.SetInt("Environment Selected ID", environmentSelectedID);
+                PlayerPrefs.SetString("Environment Scene Name", sceneName);
+
                 return;
             }
             currentEnvIndexOnList++;
@@ -100,12 +123,14 @@ public class StageSelectionController : MonoBehaviour {
     }
 
     private void OnButtonPlayPressed() {
-        goLoadingScreen.SetActive(true);
-        asyncLoading = SceneManager.LoadSceneAsync(environmentSceneName);
-        StartCoroutine(ShowLoadingScreen());
+        // goLoadingScreen.SetActive(true);
+        // StartCoroutine(ShowLoadingScreen());
     }
 
     private IEnumerator ShowLoadingScreen() {
+        yield return new WaitForSeconds(0.25f);
+        asyncLoading = SceneManager.LoadSceneAsync(sceneName);
+
         while (!asyncLoading.isDone) {
             sliderLoading.value = asyncLoading.progress;
             yield return null;

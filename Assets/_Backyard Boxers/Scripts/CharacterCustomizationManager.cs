@@ -1,89 +1,105 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class CharacterCustomizationManager : MonoBehaviour
-{
+public class CharacterCustomizationManager : MonoBehaviour {
 
     [SerializeField] private GameObject mainCharacterCustomizationScreen;
-    [SerializeField] private ItemSelectionBuilder hairSelectionScreenBuilder;
-    [SerializeField] private ItemSelectionBuilder beardSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder accessoriesSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder skinColorSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder shirtSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder shortsSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder glovesSelectionScreen;
-    [SerializeField] private ItemSelectionBuilder shoesSelectionScreen;
+    [SerializeField] private GameObject buttonBack;
+    [SerializeField] private GameObject accessoriesSelectionScreen;
+    [SerializeField] private GameObject hairSelectionScreen;
+    [SerializeField] private GameObject beardSelectionScreen;
+    [SerializeField] private GameObject topsSelectionScreen;
+    [SerializeField] private GameObject pantsSelectionScreen;
+    [SerializeField] private GameObject glovesSelectionScreen;
+    [SerializeField] private GameObject shoesSelectionScreen;
+    [SerializeField] private TextMeshProUGUI textCurrentScreen;
+    // [SerializeField] private GameObject skinColorSelectionScreen;
 
-    private void Start()
-    {
-        HideAllScreens();
-        mainCharacterCustomizationScreen.SetActive(true);
+    private IEnumerator Start() {
+        yield return new WaitForSeconds(Time.deltaTime);
+        ShowMainScreen();
     }
 
-    private void HideAllScreens(){
+    public void OnButtonBackPressed() {
+        ShowMainScreen();
+    }
+
+    private void ShowMainScreen() {
+        HideAllScreens();
+        mainCharacterCustomizationScreen.SetActive(true);
+        textCurrentScreen.text = "";
+        buttonBack.SetActive(false);
+    }
+
+    private void HideAllScreens() {
         mainCharacterCustomizationScreen.SetActive(false);
-        shirtSelectionScreen.Hide();
-        hairSelectionScreenBuilder.Hide();
-        beardSelectionScreen.Hide();
-        shortsSelectionScreen.Hide();
-        // accessoriesSelectionScreen.Hide();
-        // skinColorSelectionScreen.Hide();
-        // glovesSelectionScreen.Hide();
-        // shoesSelectionScreen.Hide();
+        topsSelectionScreen.SetActive(false);
+        hairSelectionScreen.SetActive(false);
+        beardSelectionScreen.SetActive(false);
+        pantsSelectionScreen.SetActive(false);
+        accessoriesSelectionScreen.SetActive(false);
+        glovesSelectionScreen.SetActive(false);
+        shoesSelectionScreen.SetActive(false);
+        // skinColorSelectionScreen.SetActive(false);
 
         return;
     }
 
-    public void OnButtonBackPressed(){
+    public void OnButtonHairPressed() {
         HideAllScreens();
-        mainCharacterCustomizationScreen.SetActive(true);
+        hairSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Hairs";
+        buttonBack.SetActive(true);
     }
 
-    public void OnButtonHairPressed(){
+    public void OnButtonBeardPressed() {
         HideAllScreens();
-        hairSelectionScreenBuilder.Show();
+        beardSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Beards";
+        buttonBack.SetActive(true);
     }
 
-    public void OnButtonBeardPressed(){
+    public void OnButtonHatsPressed() {
         HideAllScreens();
-        beardSelectionScreen.Show();
-    }
-    
-    public void OnButtonHatsPressed(){
-        HideAllScreens();
-        accessoriesSelectionScreen.Show();
-    }
-    
-    public void OnButtonSkinColorPressed(){
-        HideAllScreens();
-        skinColorSelectionScreen.Show();
-    }
-    
-    public void OnButtonShirtPressed(){
-        HideAllScreens();
-        shirtSelectionScreen.Show();
-    }
-    
-    public void OnButtonShortsPressed(){
-        HideAllScreens();
-        shortsSelectionScreen.Show();
-    }
-    
-    public void OnButtonGlovesPressed(){
-        HideAllScreens();
-        glovesSelectionScreen.Show();
-    }
-    
-    public void OnButtonShoesPressed(){
-        HideAllScreens();
-        shoesSelectionScreen.Show();
+        accessoriesSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Accessories";
+        buttonBack.SetActive(true);
     }
 
-    public void OnButtonPlayPressed(){
-        Data.gameState = Data.GameStates.Loading;
-        SceneManager.LoadScene(1);
+    public void OnButtonSkinColorPressed() {
+        // HideAllScreens();
+        // skinColorSelectionScreen.SetActive(true);
     }
 
+    public void OnButtonShirtPressed() {
+        HideAllScreens();
+        topsSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Tops";
+        buttonBack.SetActive(true);
+    }
+
+    public void OnButtonShortsPressed() {
+        HideAllScreens();
+        pantsSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Bottoms";
+        buttonBack.SetActive(true);
+    }
+
+    public void OnButtonGlovesPressed() {
+        HideAllScreens();
+        glovesSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Gloves";
+        buttonBack.SetActive(true);
+    }
+
+    public void OnButtonShoesPressed() {
+        HideAllScreens();
+        shoesSelectionScreen.SetActive(true);
+        textCurrentScreen.text = "Shoes";
+        buttonBack.SetActive(true);
+    }
 }

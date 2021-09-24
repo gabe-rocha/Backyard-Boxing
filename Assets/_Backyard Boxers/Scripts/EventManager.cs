@@ -31,7 +31,12 @@ public class EventManager : MonoBehaviour {
         ShowResults,
         FightEnded,
         PlayerKO,
-        ButtonSelectEnvironmentPressed
+        ButtonSelectEnvironmentPressed,
+        MainMenuTapped,
+        OnCharacterCustomizationDone,
+        WardrobeApplied,
+        RoundTimerZeroed,
+        RoundEnded
     }
 
     private Dictionary<Events, UnityEvent> simpleEventDictionary = new Dictionary<Events, UnityEvent>();

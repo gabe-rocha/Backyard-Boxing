@@ -97,20 +97,6 @@ public class Player : MonoBehaviour {
         Move(tilt.x < -Data.tiltMinX);
     }
 
-    public void Jab(bool left) {
-        if(left) {
-            anim.ResetTrigger("Jab Right");
-            anim.SetTrigger("Jab Left");
-            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Jab Left");
-        } else {
-            anim.ResetTrigger("Jab Left");
-            anim.SetTrigger("Jab Right");
-            EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Jab Right");
-        }
-        lastPunchDamage = PlayerPrefs.GetInt("Player Jab Damage", 400);
-
-    }
-
     public void Move(bool left) {
         if(movingCor != null) {
             anim.ResetTrigger("Move Left");
@@ -155,6 +141,62 @@ public class Player : MonoBehaviour {
         } else {
             anim.ResetTrigger("Block");
             anim.SetBool("Is Blocking", false);
+        }
+    }
+
+    public void Jab() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Jab");
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Jab");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Jab Damage", 50);
+    }
+
+    public void Cross() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Cross");
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Cross");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Cross Damage", 100);
+    }
+    public void HookLeft() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Hook Left");
+        StartCoroutine(MoveForwardToHit());
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Left Hook");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Hook Damage", 150);
+    }
+    public void HookRight() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Hook Right");
+        StartCoroutine(MoveForwardToHit());
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Right Hook");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Hook Damage", 150);
+    }
+    public void UppercutLeft() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Uppercut Left");
+        StartCoroutine(MoveForwardToHit());
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Left Uppercut");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Uppercut Damage", 250);
+    }
+    public void UppercutRight() {
+        ResetAllAnimationTriggers();
+        anim.SetTrigger("Uppercut Right");
+        StartCoroutine(MoveForwardToHit());
+        EventManager.Instance.TriggerEventWithStringParam(EventManager.Events.LastMove, "Right Uppercut");
+        lastPunchDamage = PlayerPrefs.GetInt("Player Uppercut Damage", 250);
+    }
+
+    private IEnumerator MoveForwardToHit() {
+        float startTime = Time.time;
+        while (Time.time < startTime + 0.25f) {
+            model.transform.position = model.transform.position + (model.transform.forward * Time.deltaTime);
+            yield return null;
+        }
+
+        startTime = Time.time;
+        while (Time.time < startTime + 0.25f) {
+            model.transform.position = model.transform.position - (model.transform.forward * Time.deltaTime);
+            yield return null;
         }
     }
 
@@ -204,6 +246,21 @@ public class Player : MonoBehaviour {
             anim.SetTrigger("Be Sad");
         }
         yield return null;
+    }
+
+    private void ResetAllAnimationTriggers() {
+        anim.ResetTrigger("Jab");
+        anim.ResetTrigger("Cross");
+        anim.ResetTrigger("Hook Left");
+        anim.ResetTrigger("Hook Right");
+        anim.ResetTrigger("Uppercut Left");
+        anim.ResetTrigger("Uppercut Right");
+        anim.ResetTrigger("Move Left");
+        anim.ResetTrigger("Move Right");
+        anim.ResetTrigger("Slip Left");
+        anim.ResetTrigger("Slip Right");
+        // anim.ResetTrigger("Get Hit");
+        // anim.ResetTrigger("Block");
     }
 
 }

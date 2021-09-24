@@ -132,7 +132,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LipsNailRoughnessBoost: 0.75
+    - _LipsNailRoughnessBoost: 0.192
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -145,9 +145,9 @@ Material:
     - _SkinBlendColorPower02: 0
     - _SkinBlendColorPower03: 0
     - _SkinBlendColorPower04: 0
-    - _SkinPore_Power: 0.25
+    - _SkinPore_Power: 0.239
     - _SkinPore_Tilling: 55
-    - _SkinRounghnessBoots: 0.75
+    - _SkinRounghnessBoots: 0.432
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

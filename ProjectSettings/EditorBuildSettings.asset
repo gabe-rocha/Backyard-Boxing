@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/_Backyard Boxers/Scenes/Main Menu/Main Menu.unity
     guid: b82924d0e02796c4097af4811649aca1
   - enabled: 1
-    path: Assets/_Backyard Boxers/Scenes/Character Selection/Character Selection.unity
+    path: Assets/_Backyard Boxers/Scenes/Character Customization/Character Selection.unity
     guid: 587d8d4a2255c4a469b0774113ad37b9
   - enabled: 1
     path: Assets/_Backyard Boxers/Scenes/Fighting Demo/Fighting Demo.unity
