@@ -10,7 +10,8 @@ public static class Data {
         ShowingRingGirl,
         Fighting,
         ShowingResults,
-        FightEnd
+        FightEnd,
+        Training
     }
 
     public static GameStates gameState = GameStates.Loading;

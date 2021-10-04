@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         if(Data.gameState == Data.GameStates.SelectingCharacter)
             HandleCharScreenRotation();
 
-        if(Data.gameState == Data.GameStates.Fighting) {
+        if(Data.gameState == Data.GameStates.Fighting || Data.gameState == Data.GameStates.Training) {
             // if(player == null || opponent == null){
             //     return;
             // }
