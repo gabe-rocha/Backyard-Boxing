@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4030969741971055353}
   m_Layer: 0
   m_Name: Glove Hit Box Left
-  m_TagString: Player
+  m_TagString: Opponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
